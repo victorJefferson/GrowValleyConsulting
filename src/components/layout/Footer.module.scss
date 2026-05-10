@@ -1,0 +1,195 @@
+.footer {
+    background-color: var(--color-surface-1);
+    color: var(--color-primary-navy);
+    padding: var(--section-gap) 0 0;
+    font-family: var(--font-family-sans);
+
+    h3,
+    h4 {
+        color: var(--color-primary-navy);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.875rem;
+        line-height: 1.2;
+        margin-bottom: 0;
+        font-weight: 400;
+        color: var(--color-primary-navy);
+    }
+}
+
+.footerGrid {
+    display: grid;
+    gap: 4rem;
+    grid-template-columns: 1fr;
+    padding-bottom: var(--section-gap);
+
+    @media (min-width: 1024px) {
+        grid-template-columns: 1fr 3fr;
+    }
+}
+
+.brandCol {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    .logoLink {
+        display: inline-block;
+        margin-bottom: 3rem;
+    }
+
+    .logoImage {
+        width: auto;
+        height: 50px;
+        object-fit: contain;
+    }
+}
+
+.contactCallout {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5rem;
+}
+
+.phoneLink {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-primary-navy);
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: var(--color-accent);
+    }
+}
+
+.enquiryLink {
+    margin-top: 1rem; // Reduced from 1.75rem to balance with phone link
+    color: var(--color-primary);
+    /* Blue, matching Vistra */
+    font-weight: 700;
+    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    transition: gap 0.3s ease;
+
+    .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        gap: 0.65rem;
+
+        .arrow {
+            transform: translateX(3px);
+        }
+    }
+}
+
+.socialLinks {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 3.5rem;
+}
+
+.socialIcon {
+    width: 44px;
+    height: 44px;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+
+    svg {
+        display: block;
+    }
+
+    &:hover {
+        background-color: var(--color-primary);
+    }
+}
+
+.navGrid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+
+    @media (min-width: 640px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.linksCol {
+    h4 {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin-bottom: 1rem;
+
+            a {
+                color: var(--color-text-muted);
+                font-size: 1rem;
+                transition: color 0.2s;
+
+                &:hover {
+                    color: var(--color-primary-navy);
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+.bottomBar {
+    background-color: var(--color-surface-2);
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-surface-3);
+}
+
+.bottomInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+    }
+}
+
+.legalLinks {
+    display: flex;
+    gap: 2rem;
+
+    a {
+        transition: color 0.2s;
+
+        &:hover {
+            color: var(--color-primary-navy);
+            text-decoration: underline;
+        }
+    }
+}

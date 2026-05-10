@@ -1,0 +1,247 @@
+/*
+ * Brand palette (single source of truth)
+ * Primary: aqua · Accent / eyebrows: warm coral (complementary, not analogous to primary)
+ * Legacy --accent-blue aliases accent channels for hsla() in modules + subtle tints.
+ */
+:root {
+  /* Primary — aqua blue (surfaces, buttons, banners) */
+  --primary-h: 190;
+  --primary-s: 58%;
+  --primary-l: 65%;
+
+  --color-primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+  --color-primary-light: hsl(var(--primary-h), 48%, 78%);
+  --color-primary-dark: hsl(var(--primary-h), 56%, 52%);
+
+  /* Near-black on primary-colored backgrounds (WCAG-friendly on aqua fills) */
+  --color-on-primary: #0a0a0a;
+  --color-on-primary-muted: hsla(0, 0%, 0%, 0.72);
+  --color-on-primary-subtle: hsla(0, 0%, 0%, 0.55);
+
+  /*
+   * Dark tint of primary hue — headings & body type on LIGHT backgrounds only.
+   * (Do not use as a fill; use --color-primary / -dark / -light for aqua panels.)
+   */
+  --color-primary-navy: hsl(var(--primary-h), 45%, 13%);
+
+  /* Accent — warm coral / orange (contrast vs aqua primary; CTAs, emphasis, tags) */
+  --accent-h: 17;
+  --accent-s: 92%;
+  --accent-l: 53%;
+  --color-accent: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+
+  /* All section / hero eyebrows use this token */
+  --color-eyebrow: var(--color-accent);
+
+  /* Vibrant accent — hot magenta / pink (highlights, gradient endpoints, dots) */
+  --accent-vibrant-h: 328;
+  --accent-vibrant-s: 85%;
+  --accent-vibrant-l: 54%;
+  --color-accent-vibrant: hsl(var(--accent-vibrant-h), var(--accent-vibrant-s), var(--accent-vibrant-l));
+
+  /*
+   * Legacy "accent-blue" — aliases accent so hsla(var(--accent-blue-h), …) stays valid everywhere.
+   */
+  --accent-blue-h: var(--accent-h);
+  --accent-blue-s: var(--accent-s);
+  --accent-blue-l: var(--accent-l);
+  --color-accent-blue: hsl(var(--accent-blue-h), var(--accent-blue-s), var(--accent-blue-l));
+  --color-accent-blue-soft: hsla(var(--accent-blue-h), var(--accent-blue-s), var(--accent-blue-l), 0.14);
+
+  /* Secondary — leaf green (available for categories / positive accents) */
+  --secondary-h: 142;
+  --secondary-s: 62%;
+  --secondary-l: 40%;
+  --color-secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
+
+  /* Highlight — golden amber (badges, secondary emphasis — use sparingly) */
+  --highlight-h: 43;
+  --highlight-s: 96%;
+  --highlight-l: 52%;
+  --color-highlight: hsl(var(--highlight-h), var(--highlight-s), var(--highlight-l));
+
+  --color-surface-1: hsl(var(--primary-h), 15%, 97%);
+  --color-surface-2: hsl(var(--primary-h), 15%, 93%);
+  --color-surface-3: hsl(var(--primary-h), 10%, 88%);
+
+  /* Legacy variable mappings for backward compatibility */
+  --color-hero-gradient-start: var(--color-primary-dark);
+  --color-hero-gradient-end: var(--color-primary);
+  --color-surface-secondary: var(--color-surface-2);
+  --color-surface-tertiary: var(--color-surface-3);
+  --color-white: #FFFFFF;
+  --color-text-body: hsl(var(--primary-h), 40%, 8%);
+  --color-text-muted: hsl(var(--primary-h), 10%, 40%);
+  --color-footer-bg: var(--color-primary-dark);
+
+  /* Brand gradient — aqua fills (copy stays black via --color-on-primary) */
+  --color-banner-gradient: linear-gradient(
+    110deg,
+    var(--color-primary-dark) 0%,
+    var(--color-primary) 45%,
+    var(--color-primary-light) 100%
+  );
+
+  /* Typography & Layout */
+  --font-family-sans: var(--font-sans), sans-serif;
+  --font-size-base: 18px;
+  --line-height-base: 1.6;
+
+  --border-radius-pill: 50px;
+  --border-radius-card: 20px;
+  --border-radius-hero: 40px;
+
+  --max-width-container: 1200px;
+
+  /* ── Section spacing scale (single source of truth) ──
+     Adjust these three values to control all between-section
+     vertical space across the entire site. */
+  --section-gap-sm: 3rem;
+  /* mobile            */
+  --section-gap-md: 3rem;
+  /* tablet  ≥ 768px   */
+  --section-gap-lg: 3rem;
+  /* desktop ≥ 1024px  */
+  --section-gap: var(--section-gap-sm);
+}
+
+/* Base Resets */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  color: var(--color-text-body);
+  background-color: var(--color-white);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  width: 100%;
+}
+
+/* Root layout resets */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-primary-navy);
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  /* Reduced minimum for mobile fit */
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.3;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Global utility classes */
+.container {
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
+}
+
+/* Promote --section-gap alias at each breakpoint */
+@media (min-width: 768px) {
+  :root {
+    --section-gap: var(--section-gap-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-gap: var(--section-gap-lg);
+  }
+}
+
+.section-padding {
+  padding-top: var(--section-gap);
+  padding-bottom: var(--section-gap);
+}
+
+/* Canonical section title, use on all page h2 headings */
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-primary-navy);
+  margin-bottom: 1rem;
+}
+
+/* Canonical section eyebrow label */
+.section-eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-eyebrow);
+  margin-bottom: 1rem;
+}
+
+/* Canonical section body / description */
+.section-body {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.siteWrapper {
+  overflow-x: clip;
+  width: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

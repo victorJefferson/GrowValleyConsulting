@@ -1,0 +1,118 @@
+.dataSection {
+    margin: auto;
+    width: calc(100% - 2.5rem);
+
+    @media (min-width: 1248px) {
+        max-width: var(--max-width-container);
+        width: 100%;
+    }
+}
+
+.dataSectionInner {
+    background-color: var(--color-accent-blue);
+    color: var(--color-white);
+    border-radius: var(--border-radius-hero);
+    padding: 4rem 2rem;
+    overflow: hidden;
+
+    @media (min-width: 768px) {
+        padding: 5rem 3rem;
+    }
+
+    @media (min-width: 1024px) {
+        padding: 6rem 5rem;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+    text-align: center;
+
+    @media (min-width: 900px) {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(2rem, 6vw, 5rem);
+        text-align: center;
+    }
+}
+
+.leftColumn {
+    flex: 1;
+    max-width: 480px;
+    margin-inline: auto;
+    text-align: center;
+    container-type: inline-size;
+    container-name: data-intro;
+
+    .headline {
+        color: var(--color-white);
+        font-size: clamp(2rem, 5cqi + 1rem, 3.5rem);
+        font-weight: 500;
+        margin-bottom: 1rem;
+        line-height: 1.1;
+        text-wrap: balance;
+    }
+
+    .description {
+        font-size: clamp(1rem, 2cqi + 0.85rem, 1.25rem);
+        line-height: 1.6;
+        margin-bottom: 0;
+        color: var(--color-white);
+        text-wrap: balance;
+    }
+
+    .ctaButton {
+        background-color: var(--color-white);
+        color: var(--color-primary-navy);
+    }
+}
+
+.rightColumn {
+    flex: 1;
+    width: 100%;
+    max-width: 560px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    justify-items: center;
+
+    @media (min-width: 500px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: none;
+        column-gap: clamp(1rem, 3vw, 2rem);
+        row-gap: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .statItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+        container-type: inline-size;
+        container-name: stat;
+    }
+
+    .statValue {
+        font-size: clamp(2.25rem, 18cqi, 4.5rem);
+        font-weight: 600;
+        line-height: 1.1;
+        color: var(--color-white);
+        letter-spacing: -0.02em;
+    }
+
+    .statLabel {
+        font-size: clamp(0.8125rem, 5.5cqi, 1.125rem);
+        color: var(--color-white);
+        line-height: 1.45;
+        font-weight: 500;
+        text-wrap: balance;
+    }
+}
