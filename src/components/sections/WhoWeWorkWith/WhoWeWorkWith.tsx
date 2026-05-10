@@ -75,7 +75,7 @@ export const WhoWeWorkWith = ({ cmsData }: { cmsData?: { headline?: string; desc
           <div className={styles.partnerCardsBento}>
             {AREA_CLASSES.map((areaClass, index) => {
               const { title, body, iconName } = getCardData(index);
-              const IconComponent = iconName ? (Icons as Record<string, React.ComponentType<{ className?: string; size?: number; strokeWidth?: number }>>)[iconName] : null;
+              const IconComponent = iconName ? (Icons as any)[iconName] : null;
 
               return (
                 <article
