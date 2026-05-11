@@ -18,7 +18,7 @@ export const DataSection = ({ headline, description, stats }: DataSectionProps) 
   return (
     <section className={`${styles.dataSection}`}>
       <div className={styles.dataSectionInner}>
-        <div className={`container ${styles.container}`}>
+        <div className={styles.container}>
           <div className={styles.leftColumn}>
             <h2 className={styles.headline}>{headline}</h2>
             <p className={styles.description}>{description}</p>
