@@ -176,14 +176,14 @@
       }
 
       .titlePart {
-        color: var(--color-white);
+        color: var(--color-pure-white);
       }
     }
 
     p {
       font-size: 1.1rem;
       font-weight: 600;
-      color: var(--color-white);
+      color: var(--color-pure-white);
       line-height: 1.35;
       margin: 0;
     }
@@ -274,7 +274,7 @@
         display: block;
         font-size: clamp(1.75rem, 3.5vw, 2.5rem);
         font-weight: 700;
-        color: var(--color-white);
+        color: var(--color-pure-white);
         line-height: 1.1;
         margin-bottom: 0.5rem;
       }
@@ -465,7 +465,7 @@
     width: 40px;
     height: 40px;
     background: var(--color-accent);
-    color: var(--color-white);
+    color: var(--color-pure-white);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -710,7 +710,7 @@
 
       li {
         font-size: 1rem;
-        color: var(--color-primary-light);
+        color: var(--color-text-muted);
         font-weight: 500;
         padding: 0.6rem 0;
         border-bottom: 1px solid var(--color-surface-2);

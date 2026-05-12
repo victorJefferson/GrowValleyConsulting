@@ -17,7 +17,7 @@
       hsla(var(--primary-h), var(--primary-s), 4%, 0.98)),
     url("/images/solutions_panoramic.png") no-repeat center center;
   background-size: cover;
-  color: var(--color-white);
+  color: var(--color-pure-white);
   border-radius: var(--border-radius-hero);
   padding: 4rem 1.5rem;
   position: relative;
@@ -47,7 +47,7 @@
 .sectionHeadline {
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.1;
-  color: var(--color-white);
+  color: var(--color-pure-white);
   margin-bottom: 1.5rem;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -117,7 +117,7 @@
   }
 
   &.active {
-    color: var(--color-white);
+    color: var(--color-pure-white);
     font-weight: 500;
     transform: translateX(10px);
 
@@ -191,7 +191,7 @@
 
   &:hover {
     gap: 1rem;
-    color: var(--color-white);
+    color: var(--color-pure-white);
 
     svg {
       transform: translateX(5px);

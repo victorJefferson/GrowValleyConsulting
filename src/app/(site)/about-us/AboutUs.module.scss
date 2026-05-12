@@ -449,7 +449,7 @@
 .solutionsTabs {
     display: flex;
     flex-direction: column;
-    background-color: hsla(var(--primary-h), 40%, 96%, 1);
+    background-color: var(--color-hover-bg);
     padding: 0.5rem;
     border-radius: 20px;
     margin: 2.5rem 0;
@@ -507,7 +507,7 @@
 }
 
 .serviceItemCard {
-    background-color: hsla(var(--primary-h), 20%, 98%, 1); // Very Light Tint
+    background-color: var(--color-hover-bg);
     padding: 2rem;
     border-radius: 12px;
     display: flex;

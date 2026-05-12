@@ -6,7 +6,7 @@
 .articleHeader {
   padding: 8rem 0 4rem;
   background-color: var(--color-surface-secondary);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--color-border-subtle);
 
   @media (max-width: 768px) {
     padding: 6rem 0 3rem;
@@ -126,7 +126,7 @@
 .articleFooter {
   margin-top: 5rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .backToTop {
@@ -283,5 +283,5 @@
 
 .relatedSection {
   background-color: var(--color-surface-secondary);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--color-border-subtle);
 }

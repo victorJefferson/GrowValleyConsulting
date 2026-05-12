@@ -658,7 +658,7 @@
     &:hover {
         .stepNumber {
             background-color: var(--color-accent);
-            color: var(--color-white);
+            color: var(--color-pure-white);
             transform: translateY(-8px) scale(1.05);
             box-shadow: 0 15px 35px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.3);
         }
@@ -705,7 +705,7 @@
     background-position: center;
     background-attachment: fixed;
     padding: 8rem 0;
-    color: var(--color-white);
+    color: var(--color-pure-white);
     position: relative;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }

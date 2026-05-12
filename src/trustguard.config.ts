@@ -4,11 +4,11 @@ export const trustGuardConfig: TrustGuardConfig = {
   active: true, // Toggle the entire system
   branding: {
     name: "GrowValley",
-    logo: "/gv-logo-blue.png", // Using navy blue logo to match theme
+    logo: "/gv-logo-white.png", // Using navy blue logo to match theme
     colors: {
-      primary: "#142238", // Institutional Navy
-      text: "#111827",
-      background: "#FFFFFF",
+      primary: "#1a1f2e", // Dark charcoal (matches --color-primary)
+      text: "#e0e0e0", // Light text for dark background
+      background: "#0a0a0a", // Near-black canvas (matches --color-white)
     },
   },
   categories: {

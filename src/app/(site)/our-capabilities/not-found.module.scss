@@ -22,7 +22,7 @@
 .iconCircle {
   width: 96px;
   height: 96px;
-  background-color: hsla(var(--primary-h), 20%, 98%, 1);
+  background-color: var(--color-hover-bg);
   border-radius: 50%;
   display: flex;
   align-items: center;

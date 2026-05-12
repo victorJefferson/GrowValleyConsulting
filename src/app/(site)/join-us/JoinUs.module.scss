@@ -135,7 +135,7 @@
 .traitRow {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(160deg, hsla(0, 0%, 100%, 0.98), hsla(var(--primary-h), 60%, 99%, 0.94));
+    background: var(--color-surface-1);
     border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.12);
     border-radius: 16px;
     padding: 1.35rem 1.25rem;
@@ -318,7 +318,7 @@
 .statusPill {
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--color-white);
+    color: var(--color-pure-white);
     background-color: var(--color-accent-blue);
     padding: 0.35rem 1rem;
     border-radius: var(--border-radius-pill);

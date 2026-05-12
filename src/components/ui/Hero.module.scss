@@ -177,7 +177,7 @@
     font-weight: 600;          /* Increased from 300 to be bolder */
     line-height: 1.1;
     letter-spacing: -0.02em;
-    color: var(--color-white);
+    color: var(--color-pure-white);
     margin: 0 0 1.75rem 0;
     white-space: pre-line;
     word-wrap: break-word;     /* Ensure long words wrap on narrow screens */
@@ -190,7 +190,7 @@
 
     strong {
         font-weight: 700;
-        color: var(--color-white);
+        color: var(--color-pure-white);
     }
 }
 

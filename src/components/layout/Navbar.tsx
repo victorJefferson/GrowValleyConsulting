@@ -65,7 +65,7 @@ export function Navbar({ settings }: { settings?: any }) {
             <div className={styles.logo}>
               <Link href="/">
                 <img
-                  src="/gv-logo-blue.png"
+                  src="/gv-logo-white.png"
                   alt="GrowValley Consulting Logo"
                   width="160"
                   height="60"

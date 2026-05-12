@@ -6,8 +6,8 @@
     height: 80px;
     z-index: 1000;
     background-color: var(--color-white);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid var(--color-border-subtle);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .navContainer {
@@ -168,8 +168,8 @@
     right: 0;
     z-index: 10000;
     background-color: var(--color-white);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--color-border-subtle);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
@@ -272,8 +272,8 @@
     right: 0;
     width: 100%;
     background-color: var(--color-white);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--color-border-subtle);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     z-index: 999;
     padding: 4rem 0 0 0;
     transform-origin: top;
@@ -338,7 +338,7 @@
     outline: none;
 
     &:hover {
-        background-color: hsla(var(--primary-h), 20%, 98%, 1);
+        background-color: var(--color-hover-bg);
 
         .megaMenuItemLabel {
             color: var(--color-accent-blue);
@@ -373,7 +373,7 @@
 
 .megaMenuDivider {
     width: 0;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 1px solid var(--color-border);
     margin: 0 -2rem;
     flex-shrink: 0;
 }
@@ -390,7 +390,7 @@
     display: flex;
     gap: 1.5rem;
     align-items: center;
-    background-color: hsla(var(--primary-h), 20%, 98%, 1);
+    background-color: var(--color-hover-bg);
     padding: 1rem;
     border-radius: 12px;
 
@@ -431,9 +431,9 @@
 }
 
 .megaMenuFooter {
-    background-color: hsla(var(--primary-h), 20%, 98%, 1);
+    background-color: var(--color-hover-bg);
     padding: 1.5rem 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid var(--color-border-subtle);
 }
 
 .overviewLink {
@@ -489,7 +489,7 @@
     flex-direction: column;
     gap: 1rem;
     padding: 1rem 0 1rem 1rem;
-    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 1px solid var(--color-border-subtle);
     margin-top: 0.5rem;
 }
 
@@ -523,7 +523,7 @@
     margin-top: 1.5rem !important;
     padding-top: 1.5rem !important;
     padding-bottom: 0.5rem !important;
-    border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-top: 1px solid var(--color-border) !important;
     border-left: none !important;
     border-right: none !important;
     border-bottom: none !important;
