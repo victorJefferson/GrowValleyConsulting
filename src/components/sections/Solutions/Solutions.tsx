@@ -1,133 +1,164 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import styles from "./Solutions.module.scss";
+import { Button } from "@/components/ui/Button";
+import { SOLUTIONS_HUB_FALLBACK } from "@/config/homepageContent.defaults";
 
-const solutions = [
-  {
-    id: "growth-advisory",
-    title: "Growth Advisory",
-    subtitle:
-      "Strengthening to maximise revenue and performance. We help established businesses to increase revenues with strategy and systems to improve products, process, performance, and governance — creating a strong foundation for scale.",
-    href: "/our-capabilities/growth-advisory",
-  },
-  {
-    id: "capital-advisory",
-    title: "Capital Advisory",
-    subtitle:
-      "Strengthening to raise and deploy capital. We prepare businesses to attract, structure, and deploy capital intelligently by building investment readiness, valuation defensibility, and transaction preparedness.",
-    href: "/our-capabilities/capital-advisory",
-  },
-  {
-    id: "innovation-advisory",
-    title: "Innovation Advisory",
-    subtitle:
-      "Strengthening to become an industry leader. We design and build innovation engines through structured venture-building models and venture studios to create next-generation products and businesses.",
-    href: "/our-capabilities/innovation-advisory",
-  },
-  {
-    id: "pmo",
-    title: "PMO",
-    subtitle:
-      "Driving execution discipline across complex transformation programs. We design and operate enterprise-grade Project Management Offices that give leadership teams full visibility into delivery performance, accountability, and risk across every program in the portfolio.",
-    href: "/our-capabilities/pmo",
-  },
-  {
-    id: "family-office-setup",
-    title: "Family Office Setup",
-    subtitle:
-      "Structuring, governing, and managing family wealth for the long term. We help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
-    href: "/our-capabilities/family-office-setup",
-  },
+const defaultItems = [
+    {
+        id: "growth-advisory",
+        title: "Growth Advisory",
+        tagline: "Strengthening to maximize revenues.",
+        body: "We help established businesses to increase revenues with strategy and systems to improve products, process, and performance, and governance – creating a strong foundation for scale.",
+        howNeedsMet:
+            "Strategy, structuring, optimisation, scaling systems – engineered to scale with revenues.",
+        ctaPrompt: "Discuss Your Growth Priorities Today.",
+        href: "/our-capabilities/growth-advisory",
+    },
+    {
+        id: "capital-advisory",
+        title: "Capital Advisory",
+        tagline: "Strengthening to raise capital.",
+        body: "We prepare businesses to attract, structure, and deploy capital intelligently by building investment readiness, valuation defensibility, and transaction preparedness.",
+        howNeedsMet:
+            "Strategy, investment readiness, legal library, compliance – engineered to scale with capital.",
+        ctaPrompt: "Discuss Your Capital Priorities Today.",
+        href: "/our-capabilities/capital-advisory",
+    },
+    {
+        id: "innovation-advisory",
+        title: "Innovation Advisory",
+        tagline: "Strengthening to become an industry leader.",
+        body: "We design and build innovation engines to build the next-gen products and ventures through structured venture-building models to become industry leaders.",
+        howNeedsMet:
+            "Strategy, research, product development, startup building – engineered to scale with industry domination.",
+        ctaPrompt: "Discuss Your Innovation Priorities Today.",
+        href: "/our-capabilities/innovation-advisory",
+    },
+    {
+        id: "pmo",
+        title: "PMO",
+        tagline: "Strengthening to deliver complex programs.",
+        body: "We design and operate enterprise-grade Project Management Offices so leadership retains full visibility into delivery performance, accountability, and portfolio risk.",
+        howNeedsMet:
+            "Operating cadence, PMO tooling, accountability systems – engineered to scale with certainty of delivery.",
+        ctaPrompt: "Discuss Your PMO Priorities Today.",
+        href: "/our-capabilities/pmo",
+    },
+    {
+        id: "family-office-setup",
+        title: "Family Office Setup",
+        tagline: "Structuring governance for enduring wealth.",
+        body: "We help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
+        howNeedsMet:
+            "Structure, mandates, succession alignment – engineered for multi-generational governance.",
+        ctaPrompt: "Discuss Family Office Structures Today.",
+        href: "/our-capabilities/family-office-setup",
+    },
 ];
 
-export const Solutions = ({ cmsData }: { cmsData?: any }) => {
-  const [activeSolution, setActiveSolution] = useState(0);
+export type SolutionsCmsItem = {
+    id?: string;
+    title?: string;
+    subtitle?: string;
+    tagline?: string;
+    body?: string;
+    howNeedsMet?: string;
+    ctaPrompt?: string;
+    href?: string;
+};
 
-  const displayHeadline = cmsData?.headline || "We operate through five deeply integrated advisory capabilities.";
-  const displayDescription = cmsData?.description || "GrowValley Consulting is the strategy and advisory arm of the GrowValley ecosystem, alongside GVV (capital and wealth) and GVW (execution and operations).";
-  const displayItems = cmsData?.items || solutions;
+function normalizeItem(raw: SolutionsCmsItem, index: number): (typeof defaultItems)[number] {
+    const base = defaultItems[Math.min(index, defaultItems.length - 1)];
+    const subtitle = (raw.subtitle || "").trim();
+    const sentence = subtitle.match(/^[\s\S]{3,240}?[.!?](\s|$)/);
+    const first = sentence ? sentence[0].trim() : "";
+    const remainder =
+        first && subtitle.startsWith(first) ? subtitle.slice(first.length).trim() : subtitle;
 
-  return (
-    <section className={styles.solutionsWrapper}>
-      <div className={styles.solutionsPanel}>
-        <div className="container">
-          <header className={styles.sectionHeader}>
-            <h2 className={styles.sectionHeadline}>
-              {displayHeadline}
-            </h2>
-            <p className={styles.sectionBody}>
-              {displayDescription}
-            </p>
-          </header>
+    return {
+        id: raw.id || base.id,
+        title: raw.title || base.title,
+        tagline: (raw.tagline || first || base.tagline).trim(),
+        body: (raw.body || remainder || subtitle || base.body).trim(),
+        howNeedsMet: (raw.howNeedsMet || base.howNeedsMet).trim(),
+        ctaPrompt: (raw.ctaPrompt || base.ctaPrompt).trim(),
+        href: raw.href || base.href,
+    };
+}
 
-          <div className={styles.solutionsContainer}>
-            <div className={styles.solutionsNav}>
-              <div className={styles.solutionsList}>
-                {displayItems.map((s: any, idx: number) => (
-                  <button
-                    key={s.id}
-                    className={`${styles.solutionsTrigger} ${activeSolution === idx ? styles.active : ""
-                      }`}
-                    onClick={() => {
-                      setActiveSolution(idx);
-                      const element = document.getElementById(`mobile-${s.id}`);
-                      if (element) {
-                        element.scrollIntoView({ behavior: "smooth" });
-                      }
-                    }}
-                  >
-                    {s.title}
-                  </button>
-                ))}
-              </div>
+interface SolutionsProps {
+    cmsData?: {
+        headline?: string;
+        description?: string;
+        capabilitiesLeadIn?: string;
+        items?: SolutionsCmsItem[];
+    };
+    advisorHref?: string;
+    advisorLabel?: string;
+}
+
+export const Solutions = ({
+    cmsData,
+    advisorHref = "/contact",
+    advisorLabel = "Talk to our Advisor",
+}: SolutionsProps) => {
+    const displayHeadline = cmsData?.headline ?? SOLUTIONS_HUB_FALLBACK.headline;
+    const displayDescription = cmsData?.description ?? SOLUTIONS_HUB_FALLBACK.description;
+    const leadIn = cmsData?.capabilitiesLeadIn ?? SOLUTIONS_HUB_FALLBACK.capabilitiesLeadIn;
+    const rawItems = cmsData?.items?.length ? cmsData.items : defaultItems;
+
+    const items = rawItems.map((item, idx) => normalizeItem(item, idx));
+
+    return (
+        <section className={styles.solutionsSection}>
+            <div className={`container ${styles.intro}`}>
+                <h2 className={styles.ecoTitle}>{displayHeadline}</h2>
+                <p className={styles.ecoLead}>{displayDescription}</p>
+                {leadIn ? <p className={styles.ecoDivider}>{leadIn}</p> : null}
             </div>
 
-            <div className={styles.solutionsContent}>
-              {/* Desktop: One Card at a time */}
-              <div className={styles.desktopOnly}>
-                <div className={styles.solutionsCard} key={activeSolution}>
-                  <div className={styles.cardHeader}>
-                    <h2 className={styles.cardTitleH2}>
-                      {displayItems[activeSolution].title}
-                    </h2>
-                    <p className={styles.subtitle}>
-                      {displayItems[activeSolution].subtitle}
-                    </p>
-                  </div>
-                  <Link
-                    href={displayItems[activeSolution].href}
-                    className={styles.learnMore}
-                  >
-                    Learn more <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Mobile: All cards in a list */}
-              <div className={styles.mobileOnly}>
-                {displayItems.map((s: any) => (
-                  <div
-                    id={`mobile-${s.id}`}
-                    key={s.id}
-                    className={styles.solutionsCard}
-                  >
-                    <div className={styles.cardHeader}>
-                      <h2 className={styles.cardTitleH2}>{s.title}</h2>
-                      <p className={styles.subtitle}>{s.subtitle}</p>
-                    </div>
-                    <Link href={s.href} className={styles.learnMore}>
-                      Learn more <ArrowRight size={16} />
-                    </Link>
-                  </div>
+            <div className={`container ${styles.splitList}`}>
+                {items.map((item) => (
+                    <article
+                        key={item.id}
+                        className={styles.pillarRow}
+                        aria-labelledby={`pillar-${item.id}`}>
+                        <div className={styles.leftCol}>
+                            <h3 id={`pillar-${item.id}`} className={styles.pillarTitle}>
+                                {item.title}
+                            </h3>
+                            <p className={styles.tagline}>{item.tagline}</p>
+                            <div className={styles.hDivider} aria-hidden />
+                            <p className={styles.body}>{item.body}</p>
+                            <p className={styles.supportingHow}>
+                                <span className={styles.howLabel}>How:</span>&nbsp;{item.howNeedsMet}
+                            </p>
+                            <Link href={item.href} className={styles.detailLink}>
+                                Learn more about {item.title}{" "}
+                                <ArrowRight size={14} aria-hidden strokeWidth={2} />
+                            </Link>
+                        </div>
+                        <div className={styles.rightCol}>
+                            <div className={styles.actionCard}>
+                                <p className={styles.needsLabel}>— HOW NEEDS ARE MET</p>
+                                <p className={styles.needsItalic}>{item.howNeedsMet}</p>
+                                <div className={styles.needsRule} aria-hidden />
+                                <p className={styles.ctaLead}>{item.ctaPrompt}</p>
+                                <Link href={advisorHref} className={styles.advisorWrap}>
+                                    <Button type="button" variant="advisor" size="lg">
+                                        <span>{advisorLabel}</span>
+                                        <ArrowRight size={18} aria-hidden strokeWidth={2} />
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+                    </article>
                 ))}
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };

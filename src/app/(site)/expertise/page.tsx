@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Hero } from "@/components/ui/Hero";
 import { Button } from "@/components/ui/Button";
 import { CtaBanner } from "@/components/ui/CtaBanner";
-import { TrustedBy } from "@/components/ui/TrustedBy";
 import { client, urlFor } from "@/lib/sanity";
 import { expertisePageQuery, heroQuery, siteSettingsQuery } from "@/lib/queries";
 import styles from "./Expertise.module.scss";
@@ -92,9 +91,8 @@ export default async function ExpertisePage() {
                 hasCTA
                 ctaText={pageData?.heroCtaLabel ?? "Talk to Our Advisor"}
                 ctaHref={pageData?.heroCtaLink ?? "/contact"}
+                trustBarText={trustedByLine}
             />
-
-            <TrustedBy line={trustedByLine} />
 
             {impactStats.length > 0 && (
                 <section className={`${styles.section} ${styles.statsSectionWrap}`} aria-label="Impact statistics">

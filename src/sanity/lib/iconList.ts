@@ -23,6 +23,7 @@ export const iconList = [
   { title: "Flag", value: "Flag" },
   { title: "Folder", value: "Folder" },
   { title: "Globe", value: "Globe" },
+  { title: "Graduation Cap", value: "GraduationCap" },
   { title: "Growth / Trending Up", value: "TrendingUp" },
   { title: "Handshake", value: "Handshake" },
   { title: "Heart", value: "Heart" },

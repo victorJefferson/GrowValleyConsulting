@@ -61,7 +61,9 @@ export function Footer({ settings }: { settings?: any }) {
     }
   ];
 
-  const footerNav = settings?.footerNavigation || fallbackFooterNav;
+  const cmsFooter = settings?.footerNavigation;
+  const footerNav =
+    Array.isArray(cmsFooter) && cmsFooter.length > 0 ? cmsFooter : fallbackFooterNav;
   const footerCopyright = settings?.footerCopyright ||
     "GrowValley Consulting — A subsidiary of GrowValley Group. Strategy. Capital. Execution.";
 
@@ -72,7 +74,7 @@ export function Footer({ settings }: { settings?: any }) {
         <div className={styles.brandCol}>
           <Link href="/" className={styles.logoLink}>
             <img
-              src="/gv-logo-blue.png"
+              src="/gv-logo-white.png"
               alt="GrowValley Consulting Logo"
               width="160"
               height="60"

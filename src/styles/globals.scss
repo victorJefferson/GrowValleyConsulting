@@ -78,6 +78,14 @@
   /* Actual white — for text on dark/colored fills (hero headlines, accent panels, etc.) */
   --color-pure-white: #FFFFFF;
 
+  /*
+   * Light-surface CTAs on dark heroes / banners (fills + text strictly from palette).
+   * Use these instead of --color-white (--color-white is the dark canvas alias).
+   */
+  --color-cta-inverse-fill: var(--color-pure-white);
+  --color-cta-inverse-fill-hover: var(--color-on-primary);
+  --color-cta-inverse-text: hsl(0, 0%, 9%);
+
   /* Text — light on dark canvas */
   --color-text-body: hsl(0, 0%, 88%);
   --color-text-muted: hsl(var(--primary-h), 8%, 58%);

@@ -1,287 +1,107 @@
-.whoWeWorkWithPremium {
-    margin: auto;
-    margin-bottom: 3rem;
-    width: calc(100% - 2rem);
-    color: var(--color-primary-navy);
-
-    @media (min-width: 768px) {
-        width: calc(100% - 3rem);
-    }
-
-    @media (min-width: 1248px) {
-        max-width: var(--max-width-container);
-        width: 100%;
-    }
+.whoDark {
+    background-color: var(--color-white);
+    padding: clamp(3.75rem, 8vw, 6rem) 0;
 }
 
-.whoWeWorkWithInner {
-    background-color: var(--color-surface-2);
-    border-radius: var(--border-radius-hero);
-    padding: 3rem 1.25rem;
-    overflow: hidden;
-    border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.14);
-    box-shadow:
-        0 1px 2px hsla(var(--primary-h), 35%, 8%, 0.06),
-        0 12px 40px hsla(var(--primary-h), 35%, 8%, 0.06);
-
-    @media (min-width: 768px) {
-        padding: 5rem 3rem;
-    }
-
-    @media (min-width: 1024px) {
-        padding: 6rem 5rem;
-    }
+.inner {
+    max-width: var(--max-width-container);
 }
 
-.sectionHeading {
-    font-size: clamp(2rem, 5vw, 4rem);
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    color: var(--color-primary-navy);
-    font-weight: 400;
+.headerBlock {
     text-align: center;
+    max-width: 44rem;
+    margin: 0 auto 3.25rem;
 }
 
-.sectionIntro {
-    max-width: 46rem;
-    margin: 0 auto 2.5rem;
-    text-align: center;
-    font-size: clamp(1rem, 2vw, 1.125rem);
+.heading {
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--color-pure-white);
+}
+
+.intro {
+    margin: 0 auto;
+    font-size: 1.0625rem;
     line-height: 1.6;
     color: var(--color-text-muted);
-    font-weight: 400;
 }
 
-.partnerCardsBento {
+.headerRule {
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin: 1.75rem auto 0;
+    background: linear-gradient(
+        90deg,
+        hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.9),
+        hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.8)
+    );
+    border-radius: 2px;
+}
+
+.grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: stretch;
 
-    @media (min-width: 768px) {
-        gap: 1.25rem;
+    @media (min-width: 640px) {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     @media (min-width: 1024px) {
-        grid-template-columns: 1.15fr 1fr 1fr;
-        /* Let rows grow from content — avoids short tracks when a sibling uses size containment elsewhere */
-        grid-template-rows: auto auto auto;
-        grid-template-areas:
-            "hero corp univ"
-            "hero fam fam"
-            "scale fam fam";
-        gap: 1.5rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
     }
 }
 
-.bentoCard {
-    background: var(--color-white);
-    border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.28);
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    min-height: 100%;
-    height: 100%;
-    /* inline-size only: `size` containment breaks grid intrinsic height / row sizing */
-    container-type: inline-size;
-    container-name: bento;
+.tile {
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-card);
+    padding: clamp(1.65rem, 4vw, 2.35rem);
+    background: hsla(var(--primary-h), 10%, 10%, 0.55);
+    text-align: center;
     transition:
-        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow 0.35s ease,
-        border-color 0.35s ease;
-
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-        height: 3px;
-        border-radius: 20px 20px 0 0;
-        background: linear-gradient(
-            90deg,
-            hsla(var(--primary-h), 56%, 48%, 0.85),
-            hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.75)
-        );
-        opacity: 0.92;
-    }
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 
     &:hover {
-        transform: translateY(-4px);
-        box-shadow:
-            0 2px 6px hsla(var(--primary-h), 35%, 8%, 0.06),
-            0 18px 42px hsla(var(--primary-h), 35%, 8%, 0.1);
-        border-color: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.45);
-    }
-
-    .bentoContent {
-        position: relative;
-        z-index: 2;
-        min-height: 0;
-        padding: 1.5rem 1.35rem 1.75rem;
-        padding-top: calc(1.5rem + 3px);
-        width: 100%;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        @supports (justify-content: safe center) {
-            justify-content: safe center;
-        }
-        text-align: center;
-
-        @media (min-width: 768px) {
-            padding: 2rem 1.75rem 2.1rem;
-            padding-top: calc(1.9rem + 3px);
-        }
+        transform: translateY(-3px);
+        border-color: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.35);
+        box-shadow: 0 16px 40px hsla(0, 0%, 0%, 0.25);
     }
 }
 
-.cardIconWrap {
+.iconRing {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    margin-bottom: 0.75rem;
-    padding: 0.35rem;
-    color: hsl(var(--primary-h), 52%, 42%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    background: hsla(var(--primary-h), 14%, 8%, 0.95);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-pure-white);
 }
 
-.cardIcon {
-    display: block;
-    flex-shrink: 0;
-    overflow: visible;
-    width: clamp(1.45rem, 7cqi, 2.35rem);
-    height: clamp(1.45rem, 7cqi, 2.35rem);
-    stroke-width: 1.55px;
+.icon {
+    opacity: 0.95;
 }
 
-.cardTitle {
-    flex-shrink: 0;
-    margin: 0 0 0.45rem;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--color-primary-navy);
-    text-wrap: balance;
-    font-size: clamp(1rem, 5.5cqi + 0.35rem, 1.45rem);
-}
-
-.cardBody {
-    flex-shrink: 0;
+.tileTitle {
     margin: 0;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--color-text-muted);
-    text-wrap: balance;
-    overflow-wrap: break-word;
-    font-size: clamp(0.78rem, 3.75cqi + 0.45rem, 1.05rem);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--color-pure-white);
+    line-height: 1.35;
 }
 
-.areaHero {
-    @media (min-width: 1024px) {
-        grid-area: hero;
-    }
-
-    .cardTitle {
-        font-size: clamp(1.15rem, 8cqi + 0.5rem, 2.35rem);
-        font-weight: 600;
-    }
-
-    .cardBody {
-        font-size: clamp(0.82rem, 4.5cqi + 0.48rem, 1.2rem);
-        line-height: 1.5;
-    }
-
-    .cardIcon {
-        width: clamp(1.55rem, 9cqi, 2.65rem);
-        height: clamp(1.55rem, 9cqi, 2.65rem);
-    }
-}
-
-.areaCorp {
-    @media (min-width: 1024px) {
-        grid-area: corp;
-    }
-
-    .cardTitle {
-        font-size: clamp(0.95rem, 4.75cqi + 0.42rem, 1.28rem);
-    }
-
-    .cardBody {
-        font-size: clamp(0.72rem, 2.85cqi + 0.42rem, 0.9rem);
-        line-height: 1.45;
-    }
-
-    .cardIcon {
-        width: clamp(1.28rem, 6cqi, 1.95rem);
-        height: clamp(1.28rem, 6cqi, 1.95rem);
-    }
-}
-
-.areaUniv {
-    @media (min-width: 1024px) {
-        grid-area: univ;
-    }
-
-    .cardTitle {
-        font-size: clamp(0.92rem, 4.5cqi + 0.4rem, 1.22rem);
-    }
-
-    .cardBody {
-        font-size: clamp(0.7rem, 2.65cqi + 0.4rem, 0.88rem);
-        line-height: 1.45;
-    }
-
-    .cardIcon {
-        width: clamp(1.28rem, 6cqi, 1.95rem);
-        height: clamp(1.28rem, 6cqi, 1.95rem);
-    }
-}
-
-.areaFamily {
-    @media (min-width: 1024px) {
-        grid-area: fam;
-    }
-
-    .cardTitle {
-        font-size: clamp(1.05rem, 7cqi + 0.45rem, 2.15rem);
-        font-weight: 600;
-    }
-
-    .cardBody {
-        font-size: clamp(0.82rem, 4.25cqi + 0.48rem, 1.15rem);
-        line-height: 1.5;
-    }
-
-    .cardIcon {
-        width: clamp(1.45rem, 7.5cqi, 2.5rem);
-        height: clamp(1.45rem, 7.5cqi, 2.5rem);
-    }
-}
-
-.areaScale {
-    @media (min-width: 1024px) {
-        grid-area: scale;
-    }
-
-    .cardTitle {
-        font-weight: 600;
-        font-size: clamp(1rem, 6cqi + 0.38rem, 1.5rem);
-    }
-
-    .cardBody {
-        font-size: clamp(0.76rem, 3.5cqi + 0.44rem, 1.05rem);
-    }
-
-    .cardIcon {
-        width: clamp(1.32rem, 6.5cqi, 2.1rem);
-        height: clamp(1.32rem, 6.5cqi, 2.1rem);
+@media (min-width: 1024px) {
+    .tileTitle {
+        font-size: 1.0625rem;
     }
 }

@@ -8,19 +8,25 @@ export const heroQuery = groq`
     ctaText,
     ctaHref,
     hasCTA,
-    image
+    image,
+    immersionMode,
+    stackedLines[]{ text, muted },
+    trustBarText
   }
 `;
 
 export const dataSectionQuery = groq`
   *[_type == "data-section-consulting"] | order(_updatedAt desc)[0] {
+    eyebrow,
     headline,
     description,
     stats[] {
       prefix,
       number,
       suffix,
-      label
+      label,
+      midLabel,
+      descriptor
     }
   }
 `;
@@ -231,10 +237,15 @@ export const solutionsQuery = groq`
   *[_type == "solutions-consulting"][0] {
     headline,
     description,
+    capabilitiesLeadIn,
     items[] {
       id,
       title,
       subtitle,
+      tagline,
+      body,
+      howNeedsMet,
+      ctaPrompt,
       href
     }
   }
@@ -323,21 +334,40 @@ export const pageQuery = groq`
 
 export const homePageQuery = groq`
   *[_type == "homePage-consulting"][0] {
-    whySplitLeftText,
-    whyCards[] {
-      iconName,
-      label,
-      description
-    },
-    positioningHeadline,
-    positioningSubheadline,
-    positioningBody,
-    miniCtaHeadline,
-    miniCtaButtonText,
-    miniCtaButtonLink,
-    bottomCtaHeadline,
-    bottomCtaButtonText,
-    bottomCtaButtonLink
+    problemsEyebrow,
+    problemsHeadline,
+    problemsLeadParagraph,
+    problemsMutedLead,
+    problemCards,
+    problemsClosing,
+    bridgeStatement,
+    bridgeCtaText,
+    bridgeCtaLink,
+    integratedEyebrow,
+    integratedBody,
+    missionStatement,
+    missionCtaText,
+    missionCtaLink,
+    whyGrowthHeadline,
+    whyGrowthBody,
+    whyGrowthEyebrow,
+    whyGrowthItalic,
+    coreExcellenceEyebrow,
+    coreExcellenceBullets,
+    whyGrowthClosingLine,
+    whyGrowthCtaText,
+    whyGrowthCtaLink,
+    topExpertiseHeadline,
+    topExpertiseSubhead,
+    topExpertiseLead,
+    topExpertiseBullets,
+    insightsCarouselTitle,
+    insightsCarouselDescription,
+    solutionsAdvisorCtaText,
+    solutionsAdvisorCtaHref,
+    finaleStatement,
+    finaleCtaText,
+    finaleCtaLink
   }
 `;
 

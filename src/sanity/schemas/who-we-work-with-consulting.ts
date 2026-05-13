@@ -7,34 +7,46 @@ export default defineType({
     type: "document",
     initialValue: {
         headline: "Who We Work With",
-        description: "We partner with organisations where complexity, ambition, and capital decisions matter. Our work is board-level, founder-level, and long-term.",
+        description:
+            "We partner with organisations where complexity, ambition, and capital decisions matter. Our work is board-level, founder-level, and long-term.",
         categories: [
             {
                 title: "Established Businesses",
-                description: "Established Businesses",
-                iconName: "Building2"
+                description:
+                    "Operating companies scaling revenue while strengthening governance.",
+                iconName: "Briefcase",
             },
             {
                 title: "Corporates & Enterprises",
-                description: "Corporates & Enterprises",
-                iconName: "Briefcase"
+                description:
+                    "Portfolio leaders navigating complexity, stakeholder alignment, and disciplined execution.",
+                iconName: "Building2",
             },
             {
-                title: "Universities & Institutions / Governments & Authorities",
-                description: "Universities & Institutions | Governments & Authorities",
-                iconName: "Landmark"
+                title: "Universities & Institutions",
+                description:
+                    "Academic innovators shaping ecosystems and long-range programmes.",
+                iconName: "GraduationCap",
             },
             {
                 title: "Family Offices",
-                description: "Family Offices",
-                iconName: "ShieldCheck"
+                description:
+                    "Families balancing wealth stewardship, mandates, and generational succession.",
+                iconName: "Users",
+            },
+            {
+                title: "Governments & Authorities",
+                description:
+                    "Public institutions delivering policy-critical initiatives with credible structure.",
+                iconName: "Landmark",
             },
             {
                 title: "Scale-Stage Startups",
-                description: "Scale-Stage Startups",
-                iconName: "Rocket"
-            }
-        ]
+                description:
+                    "Ventures past early traction tightening operating rhythm ahead of institutional capital.",
+                iconName: "TrendingUp",
+            },
+        ],
     },
     fields: [
         defineField({
@@ -50,18 +62,25 @@ export default defineType({
         defineField({
             name: "categories",
             title: "Categories",
-            description: "Up to 5 audience categories rendered in the bento grid. Pair items with a slash if you have 6 in your content (e.g. 'Universities & Institutions / Governments & Authorities').",
+            description:
+                "Up to six square cards with icon + headline. Supporting copy feeds SEO or screen-readers.",
             type: "array",
+            validation: (Rule) => Rule.max(6),
             of: [
                 {
                     type: "object",
                     fields: [
                         { name: "title", title: "Title", type: "string" },
                         { name: "description", title: "Description", type: "text" },
-                        { name: "iconName", title: "Icon Name", type: "string", options: { list: iconList } },
-                    ]
-                }
-            ]
-        })
-    ]
+                        {
+                            name: "iconName",
+                            title: "Icon Name",
+                            type: "string",
+                            options: { list: iconList },
+                        },
+                    ],
+                },
+            ],
+        }),
+    ],
 });

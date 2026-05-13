@@ -54,7 +54,9 @@ export function Navbar({ settings }: { settings?: any }) {
     },
   ];
 
-  const navLinks = settings?.mainNavigation || fallbackNavLinks;
+  const cmsNav = settings?.mainNavigation;
+  const navLinks =
+    Array.isArray(cmsNav) && cmsNav.length > 0 ? cmsNav : fallbackNavLinks;
   const pathname = usePathname();
 
   return (

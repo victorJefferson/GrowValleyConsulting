@@ -50,6 +50,26 @@
     }
 }
 
+/* High-contrast CTA on dark sections — semantic inverse tokens */
+.advisor {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--color-cta-inverse-fill);
+    color: var(--color-cta-inverse-text);
+    border-radius: 6px;
+    border: none;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+
+    &:hover {
+        background-color: var(--color-cta-inverse-fill-hover);
+        color: var(--color-cta-inverse-text);
+        box-shadow: 0 6px 20px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.35);
+    }
+}
+
 .md {
     padding: 0.75rem 2rem;
 }

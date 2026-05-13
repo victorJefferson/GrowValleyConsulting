@@ -664,3 +664,419 @@
         display: none;
     }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * Home (gv.consulting-style dark bands)
+ * ──────────────────────────────────────────────────────────────────────────── */
+
+.homeProblemsBand {
+    padding: 0;
+    background-color: var(--color-white);
+    color: var(--color-text-body);
+
+    .sectionEyebrowCenter {
+        margin: 0 0 1.25rem;
+        text-align: center;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+    }
+
+    .sectionTitleCenter {
+        margin: 0 0 1.25rem;
+        text-align: center;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 600;
+        line-height: 1.06;
+        color: var(--color-pure-white);
+        letter-spacing: -0.03em;
+        max-width: 28rem;
+        margin-inline: auto;
+    }
+
+    .decorRuleCenter {
+        display: block;
+        width: 3rem;
+        height: 2px;
+        margin: 0 auto 2rem;
+        background: linear-gradient(
+            90deg,
+            hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.95),
+            hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.8)
+        );
+        border-radius: 1px;
+    }
+
+    .sectionLead {
+        margin: 0 auto 0.85rem;
+        max-width: 44rem;
+        text-align: center;
+        font-size: 1.125rem;
+        line-height: 1.65;
+        color: var(--color-text-body);
+    }
+
+    .sectionMutedCenter {
+        margin: 0 auto 2.5rem;
+        max-width: 36rem;
+        text-align: center;
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+    }
+
+    .problemCardsRow {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        max-width: var(--max-width-container);
+        margin: 0 auto 2.5rem;
+
+        @media (min-width: 900px) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.35rem;
+        }
+    }
+
+    .problemCard {
+        display: flex;
+        gap: 0.95rem;
+        align-items: flex-start;
+        text-align: left;
+        padding: 1.5rem;
+        border-radius: var(--border-radius-card);
+        background: hsla(var(--primary-h), 10%, 10%, 0.55);
+        border: 1px solid hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.42);
+        box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.12);
+    }
+
+    .problemX {
+        flex-shrink: 0;
+        color: var(--color-accent);
+        margin-top: 0.08rem;
+    }
+
+    .problemCardBody {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.45;
+        color: var(--color-pure-white);
+        font-weight: 500;
+    }
+}
+
+.homeBridgeBand {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    background-color: var(--color-white);
+
+    .bridgePanel {
+        max-width: 56rem;
+        margin: 0 auto 2rem;
+        padding: clamp(2rem, 6vw, 3rem);
+        border-radius: var(--border-radius-card);
+        background: hsla(var(--primary-h), 10%, 10%, 0.65);
+        border: 1px solid var(--color-border);
+
+        p {
+            margin: 0;
+            font-size: clamp(1.2rem, 2.8vw, 1.85rem);
+            font-weight: 600;
+            line-height: 1.35;
+            text-align: center;
+            color: var(--color-pure-white);
+        }
+    }
+
+    .ctaCenter {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.homeIntegratedBand {
+    padding: clamp(4rem, 8vw, 6rem) 0 calc(var(--section-gap) + 1rem);
+    background-color: var(--color-white);
+
+    .integratedWrap {
+        text-align: center;
+        max-width: 44rem;
+    }
+
+    .integratedHead {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .integratedHair {
+        flex: 1;
+        max-width: 5rem;
+        height: 1px;
+        background: var(--color-border);
+    }
+
+    .integratedLabel {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+    }
+
+    .integratedBody {
+        margin: 0;
+        font-size: 1.0625rem;
+        color: var(--color-text-muted);
+        line-height: 1.6;
+    }
+}
+
+.homeMissionBand {
+    padding: clamp(3.5rem, 7vw, 5rem) 0;
+    background-color: var(--color-white);
+
+    .missionBox {
+        max-width: 52rem;
+        margin: 0 auto 2rem;
+        padding: clamp(2.25rem, 6vw, 3.75rem);
+        border-radius: var(--border-radius-hero);
+        background: hsla(var(--primary-h), 10%, 10%, 0.72);
+        border: 1px solid var(--color-border);
+
+        p {
+            margin: 0;
+            text-align: center;
+            font-size: clamp(1.15rem, 2vw, 1.45rem);
+            line-height: 1.5;
+            font-weight: 500;
+            color: var(--color-pure-white);
+        }
+    }
+
+    .ctaCenter {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.homeWhyBand {
+    padding: clamp(4rem, 8vw, 6rem) 0;
+    background-color: var(--color-white);
+
+    .whyGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        align-items: center;
+
+        @media (min-width: 960px) {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: center;
+        }
+    }
+
+    .whyLeftColumn {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .whyTitle {
+        margin: 0 0 1rem;
+        font-size: clamp(2.35rem, 4vw, 3.85rem);
+        font-weight: 600;
+        color: var(--color-pure-white);
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+    }
+
+    .whyRule {
+        display: block;
+        width: 3.5rem;
+        height: 4px;
+        margin-bottom: 1.5rem;
+        background: var(--color-pure-white);
+        border-radius: 1px;
+    }
+
+    .whyBody {
+        margin: 0 0 2rem;
+        font-size: clamp(1.175rem, 2.35vw, 1.325rem);
+        line-height: 1.72;
+        color: var(--color-text-body);
+        max-width: 38rem;
+    }
+
+    .whyTinyLabel {
+        margin: 0 0 0.35rem;
+        font-size: 0.725rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+    }
+
+    .whyItalic {
+        margin: 0;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        font-style: italic;
+        line-height: 1.58;
+        color: var(--color-text-muted);
+        max-width: 34rem;
+    }
+
+    .coreCard {
+        border-radius: var(--border-radius-card);
+        border: 1px solid var(--color-border);
+        padding: clamp(1.85rem, 5vw, 2.85rem);
+        background: hsla(var(--primary-h), 10%, 10%, 0.72);
+    }
+
+    .corePanelLabel {
+        margin: 0 0 1.25rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+    }
+
+    .coreBullets {
+        margin: 0 0 1.85rem;
+        padding: 0 0 0 1.05rem;
+        color: var(--color-pure-white);
+        display: grid;
+        gap: 0.85rem;
+
+        li {
+            line-height: 1.45;
+            font-size: 1rem;
+        }
+    }
+
+    .coreRule {
+        height: 1px;
+        width: 100%;
+        background: var(--color-border-subtle);
+        margin-bottom: 1.5rem;
+    }
+
+    .coreClosing {
+        margin: 0 0 1.85rem;
+        font-size: clamp(1.2rem, 2.4vw, 1.85rem);
+        font-weight: 600;
+        line-height: 1.35;
+        color: var(--color-pure-white);
+    }
+
+    .marginTopAdvisor {
+        display: inline-flex;
+    }
+}
+
+.homeExpertiseBand {
+    padding: clamp(3.75rem, 8vw, 6rem) 0 calc(var(--section-gap) + 2rem);
+    background-color: var(--color-white);
+
+    .sectionTitleCenter {
+        margin: 0 0 0.85rem;
+        text-align: center;
+        font-size: clamp(2rem, 3.8vw, 3rem);
+        font-weight: 600;
+        color: var(--color-pure-white);
+        letter-spacing: -0.02em;
+    }
+
+    .sectionSubCenter {
+        margin: 0 0 1.25rem;
+        text-align: center;
+        font-size: clamp(1.125rem, 2vw, 1.375rem);
+        color: var(--color-text-muted);
+        font-weight: 500;
+    }
+
+    .decorRuleCenter {
+        display: block;
+        width: 3rem;
+        height: 2px;
+        margin: 0 auto 1.75rem;
+        background: var(--color-border-strong);
+        border-radius: 1px;
+    }
+
+    .sectionLeadNarrow {
+        margin: 0 auto 2.75rem;
+        max-width: 36rem;
+        text-align: center;
+        font-size: 1.05rem;
+        line-height: 1.65;
+        color: var(--color-text-muted);
+    }
+
+    .expertiseGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.95rem;
+
+        @media (min-width: 720px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 1024px) {
+            gap: 1.1rem;
+        }
+    }
+
+    .expertisePill {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        border-radius: 14px;
+        padding: 1.05rem 1.25rem;
+        background: hsla(var(--primary-h), 10%, 10%, 0.72);
+        border: 1px solid var(--color-border-subtle);
+
+        p {
+            margin: 0;
+            font-size: 0.98rem;
+            line-height: 1.35;
+            color: var(--color-text-body);
+        }
+    }
+
+    .dot {
+        width: 0.42rem;
+        height: 0.42rem;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background-color: var(--color-pure-white);
+        opacity: 0.75;
+        box-shadow: 0 0 0 2px hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.45);
+    }
+}
+
+.homeFinaleBand {
+    padding: clamp(3.5rem, 9vw, 6rem) calc(var(--section-gap) / 2);
+    background-color: var(--color-white);
+
+    .finaleLine {
+        margin: 0 auto 2rem;
+        max-width: 32rem;
+        text-align: center;
+        font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+        line-height: 1.42;
+        color: var(--color-pure-white);
+        font-weight: 500;
+    }
+
+    .ctaCenter {
+        display: flex;
+        justify-content: center;
+    }
+}

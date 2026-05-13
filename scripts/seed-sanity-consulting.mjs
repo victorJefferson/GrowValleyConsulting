@@ -3,6 +3,10 @@ import path from "node:path";
 import { createClient } from "@sanity/client";
 import { expertisePagePayload } from "./data/expertise-page-payload.mjs";
 import { whoWeWorkWithPayload } from "./data/who-we-work-with-payload.mjs";
+import { homepageConsultingPayload } from "./data/homepage-consulting-payload.mjs";
+import { heroHomeConsultingDefaultsPayload } from "./data/home-hero-consulting-defaults-payload.mjs";
+import { dataSectionConsultingDefaultsPayload } from "./data/data-section-consulting-defaults-payload.mjs";
+import { solutionsConsultingDefaultsPayload } from "./data/solutions-consulting-defaults-payload.mjs";
 
 const root = process.cwd();
 const contentPath = path.join(root, "gv_consulting_content.md");
@@ -98,35 +102,14 @@ tx.createOrReplace({
 tx.createOrReplace({
   _id: "data-section-consulting-main",
   _type: "data-section-consulting",
-  headline: "Outcomes that compound.",
-  description:
-    "GrowValley Consulting integrates strategy, capital, and execution into one accountable advisory system — measured by what it builds, not what it presents.",
-  stats: [
-    { _key: "s1", prefix: "$", number: 3, suffix: "B+", label: "Revenues Generated through Growth Advisory" },
-    { _key: "s2", prefix: "$", number: 1, suffix: "B+", label: "Capital Structured through Capital Advisory" },
-    { _key: "s3", number: 500, suffix: "+", label: "Mandates Delivered through Innovation Advisory" },
-    { _key: "s4", number: 1, label: "Integrated Advisory System" },
-  ],
+  ...dataSectionConsultingDefaultsPayload,
 });
 
 // Core singleton docs
 tx.createOrReplace({
   _id: "homePage-consulting-main",
   _type: "homePage-consulting",
-  title: "Home Page Content",
-  whySplitLeftText:
-    "Most businesses don't lack ambition. They struggle because strategy, capital, and execution are pursued in isolation rather than as an integrated system.",
-  positioningHeadline: "The GrowValley Consulting Ecosystem",
-  positioningSubheadline:
-    "GrowValley Consulting is the strategy and advisory arm of the GrowValley ecosystem, alongside GVV (capital and wealth) and GVW (execution and operations).",
-  positioningBody:
-    "We operate through five deeply integrated advisory capabilities across growth, capital, innovation, PMO, and family office setup.",
-  miniCtaHeadline: "Strategy. Capital. Execution.",
-  miniCtaButtonText: "Talk to Our Advisor",
-  miniCtaButtonLink: "/contact",
-  bottomCtaHeadline: "When the decisions get harder, the work needs to get sharper.",
-  bottomCtaButtonText: "Talk to Our Advisor",
-  bottomCtaButtonLink: "/contact",
+  ...homepageConsultingPayload,
 });
 
 tx.createOrReplace({
@@ -228,16 +211,7 @@ tx.createOrReplace({
 tx.createOrReplace({
   _id: "solutions-consulting-main",
   _type: "solutions-consulting",
-  headline: "We operate through five deeply integrated advisory capabilities.",
-  description:
-    "GrowValley Consulting is the strategy and advisory arm of the GrowValley ecosystem.",
-  items: pillars.map((p) => ({
-    _key: p.slug,
-    id: p.slug,
-    title: p.title,
-    subtitle: `${p.title} capability`,
-    href: `/our-capabilities/${p.slug}`,
-  })),
+  ...solutionsConsultingDefaultsPayload,
 });
 
 tx.createOrReplace({
@@ -307,21 +281,24 @@ const heroSlugs = [
 ];
 for (const slug of heroSlugs) {
   const isTeam = slug === "team";
+  const isHome = slug === "home";
   tx.createOrReplace({
     _id: `hero-consulting-${slug}`,
     _type: "hero-consulting",
     pageSlug: slug,
-    eyebrow: isTeam ? "OUR TEAM" : "GROWVALLEY CONSULTING",
-    headline: isTeam
-      ? "The people who do the work."
-      : slug === "home"
-        ? "Strategy. Structure. Execution."
-        : slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-    subheadline: isTeam
-      ? "GrowValley is staffed by specialists. Each person owns a defined domain across formation, operations, finance, and international expansion. They work in coordination across functions, so nothing falls through the gaps between them."
-      : "Talk to the team that runs the work.",
+    ...(isHome
+      ? heroHomeConsultingDefaultsPayload
+      : {
+          eyebrow: isTeam ? "OUR TEAM" : "GROWVALLEY CONSULTING",
+          headline: isTeam
+            ? "The people who do the work."
+            : slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+          subheadline: isTeam
+            ? "GrowValley is staffed by specialists. Each person owns a defined domain across formation, operations, finance, and international expansion. They work in coordination across functions, so nothing falls through the gaps between them."
+            : "Talk to the team that runs the work.",
+        }),
     hasCTA: slug !== "contact" && !isTeam,
-    ctaText: slug !== "contact" && !isTeam ? "Talk to Our Advisor" : undefined,
+    ctaText: slug !== "contact" && !isTeam ? "Talk to our Advisor" : undefined,
     ctaHref: slug !== "contact" && !isTeam ? "/contact" : undefined,
   });
 }

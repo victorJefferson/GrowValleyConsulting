@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Hero } from "@/components/ui/Hero";
 import { Button } from "@/components/ui/Button";
-import { TrustedBy } from "@/components/ui/TrustedBy";
 import { client, urlFor } from "@/lib/sanity";
 import { partnerPageQuery, heroQuery, siteSettingsQuery } from "@/lib/queries";
 import styles from "./PartnerWithUs.module.scss";
@@ -192,9 +191,8 @@ export default async function PartnerWithUsLandingPage() {
                 hasCTA
                 ctaText={pageData?.heroCtaLabel ?? "Talk to Our Advisor"}
                 ctaHref={pageData?.heroCtaLink ?? "/contact"}
+                trustBarText={trustedByLine}
             />
-
-            <TrustedBy line={trustedByLine} />
 
             <section className={styles.section}>
                 <div className="container">
@@ -303,8 +301,6 @@ export default async function PartnerWithUsLandingPage() {
                     </div>
                 </div>
             </section>
-
-            <TrustedBy line={trustedByLine} />
 
             <section className={styles.section}>
                 <div className="container">

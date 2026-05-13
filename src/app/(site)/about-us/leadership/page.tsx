@@ -42,9 +42,9 @@ export default async function LeadershipPage() {
   // If leadershipData is empty, we don't have a fallback array in the original file (they were hardcoded there)
   // I'll keep the hardcoded ones as fallback if no CMS data exists
   const fallbackLeadership = [
-    { name: "Jazeer Jamal", role: "Group Chairman and CEO, GrowValley Group", image: "/images/people/jazeer_jamal.jpg" },
-    { name: "William J. Daly", role: "Co-Founder and CXO, GrowValley Group", image: "/images/people/william.jpg" },
-    { name: "Suhail Ismail", role: "Group COO, GrowValley", image: "/images/people/suhail.jpg" }
+    { name: "Jazeer Jamal", role: "Group Chairman and CEO", image: "/images/people/jazeer_jamal.jpg" },
+    { name: "William J. Daly", role: "Co-Founder and CXO", image: "/images/people/william.jpg" },
+    { name: "Suhail Ismail", role: "Group COO", image: "/images/people/suhail.jpg" }
   ];
 
   const fallbackAdvisory = [
@@ -82,28 +82,6 @@ export default async function LeadershipPage() {
 
           <div className={styles.teamGrid}>
             {finalLeadership.map((member: any, idx: number) => (
-              <div key={idx} className={styles.teamMemberCard}>
-                <div className={styles.memberImage}>
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <div className={styles.memberInfo}>
-                  <h3>{member.name}</h3>
-                  <p>{member.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding" style={{ borderTop: '1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1)' }}>
-        <div className="container">
-          <div className={`${styles.sectionHeader} text-center`}>
-            <h2 className={styles.heading}>Our Advisory Team</h2>
-          </div>
-
-          <div className={styles.teamGrid}>
-            {finalAdvisory.map((member: any, idx: number) => (
               <div key={idx} className={styles.teamMemberCard}>
                 <div className={styles.memberImage}>
                   <img src={member.image} alt={member.name} />
