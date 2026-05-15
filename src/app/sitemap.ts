@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/our-capabilities/capital-advisory',
     '/our-capabilities/innovation-advisory',
     '/our-capabilities/pmo',
-    '/our-capabilities/family-office-setup',
+    '/our-capabilities/family-office-advisory',
     '/expertise',
     '/partner-with-us',
     '/partner-with-us/expert',

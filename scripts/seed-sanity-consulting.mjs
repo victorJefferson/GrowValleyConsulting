@@ -75,13 +75,13 @@ const pillars = [
   { title: "Capital Advisory", slug: "capital-advisory" },
   { title: "Innovation Advisory", slug: "innovation-advisory" },
   { title: "PMO", slug: "pmo" },
-  { title: "Family Office Setup", slug: "family-office-setup" },
+  { title: "Family Office Advisory", slug: "family-office-advisory" },
 ];
 
 const sections = extractSections(contentMd);
 const servicePages = sections
   .map((s) => ({ ...s, path: cleanUrl(s.url) }))
-  .filter((s) => /^\/(growth-advisory|capital-advisory|innovation-advisory|pmo|family-office-setup)\/[^/]+$/.test(s.path));
+  .filter((s) => /^\/(growth-advisory|capital-advisory|innovation-advisory|pmo|family-office-advisory)\/[^/]+$/.test(s.path));
 
 const tx = client.transaction();
 
@@ -273,7 +273,7 @@ const heroSlugs = [
   "capital-advisory",
   "innovation-advisory",
   "pmo",
-  "family-office-setup",
+  "family-office-advisory",
   "expertise",
   "partner-with-us",
   "careers",

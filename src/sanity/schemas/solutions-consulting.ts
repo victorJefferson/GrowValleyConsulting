@@ -57,16 +57,16 @@ export default defineType({
                 href: "/our-capabilities/pmo",
             },
             {
-                id: "family-office-setup",
-                title: "Family Office Setup",
+                id: "family-office-advisory",
+                title: "Family Office Advisory",
                 tagline: "Structuring governance for enduring wealth.",
                 body: "We help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
                 subtitle:
                     "Structuring, governing, and managing family wealth for the long term. We help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
                 howNeedsMet:
                     "Structure, mandates, succession alignment – engineered for multi-generational governance.",
-                ctaPrompt: "Discuss Family Office Structures Today.",
-                href: "/our-capabilities/family-office-setup",
+                ctaPrompt: "Discuss Family Office Advisory Today.",
+                href: "/our-capabilities/family-office-advisory",
             },
         ],
     },

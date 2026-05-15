@@ -49,14 +49,14 @@ const defaultItems = [
         href: "/our-capabilities/pmo",
     },
     {
-        id: "family-office-setup",
-        title: "Family Office Setup",
+        id: "family-office-advisory",
+        title: "Family Office Advisory",
         tagline: "Structuring governance for enduring wealth.",
         body: "We help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
         howNeedsMet:
             "Structure, mandates, succession alignment – engineered for multi-generational governance.",
-        ctaPrompt: "Discuss Family Office Structures Today.",
-        href: "/our-capabilities/family-office-setup",
+        ctaPrompt: "Discuss Family Office Advisory Today.",
+        href: "/our-capabilities/family-office-advisory",
     },
 ];
 
@@ -70,6 +70,14 @@ export type SolutionsCmsItem = {
     ctaPrompt?: string;
     href?: string;
 };
+
+/** CMS may still contain this deprecated one-liner; never surface it in the UI. */
+function normalizeCapabilitiesLeadIn(raw: string | undefined, fallback: string | undefined): string | undefined {
+    const merged = (raw ?? fallback ?? "").trim();
+    if (!merged) return undefined;
+    if (/^(?:[\u2014\u2013\-]\s*)?our capabilities:?\s*$/i.test(merged)) return undefined;
+    return merged;
+}
 
 function normalizeItem(raw: SolutionsCmsItem, index: number): (typeof defaultItems)[number] {
     const base = defaultItems[Math.min(index, defaultItems.length - 1)];
@@ -99,22 +107,29 @@ interface SolutionsProps {
     };
     advisorHref?: string;
     advisorLabel?: string;
+    /** Homepage: center intro + pillar blocks. */
+    layout?: "default" | "centered";
 }
 
 export const Solutions = ({
     cmsData,
     advisorHref = "/contact",
     advisorLabel = "Talk to our Advisor",
+    layout = "default",
 }: SolutionsProps) => {
     const displayHeadline = cmsData?.headline ?? SOLUTIONS_HUB_FALLBACK.headline;
     const displayDescription = cmsData?.description ?? SOLUTIONS_HUB_FALLBACK.description;
-    const leadIn = cmsData?.capabilitiesLeadIn ?? SOLUTIONS_HUB_FALLBACK.capabilitiesLeadIn;
+    const leadIn = normalizeCapabilitiesLeadIn(
+        cmsData?.capabilitiesLeadIn,
+        SOLUTIONS_HUB_FALLBACK.capabilitiesLeadIn,
+    );
     const rawItems = cmsData?.items?.length ? cmsData.items : defaultItems;
 
     const items = rawItems.map((item, idx) => normalizeItem(item, idx));
 
     return (
-        <section className={styles.solutionsSection}>
+        <section
+            className={`${styles.solutionsSection} ${layout === "centered" ? styles.solutionsSectionCentered : ""}`}>
             <div className={`container ${styles.intro}`}>
                 <h2 className={styles.ecoTitle}>{displayHeadline}</h2>
                 <p className={styles.ecoLead}>{displayDescription}</p>

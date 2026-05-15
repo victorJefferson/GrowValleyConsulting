@@ -38,7 +38,7 @@ export function Footer({ settings }: { settings?: any }) {
         { name: "Capital Advisory", href: "/our-capabilities/capital-advisory" },
         { name: "Innovation Advisory", href: "/our-capabilities/innovation-advisory" },
         { name: "PMO", href: "/our-capabilities/pmo" },
-        { name: "Family Office Setup", href: "/our-capabilities/family-office-setup" },
+        { name: "Family Office Advisory", href: "/our-capabilities/family-office-advisory" },
       ]
     },
     {

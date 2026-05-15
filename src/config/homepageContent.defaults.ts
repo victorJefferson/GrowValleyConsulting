@@ -143,8 +143,9 @@ export const DATA_SECTION_FALLBACK_META = {
 
 /** `solutions-consulting` intro — seeded in Sanity & used when the document is unavailable. */
 export const SOLUTIONS_HUB_FALLBACK = {
-  headline: "The GrowValley Ecosystem",
+  headline: "Five capabilities. One integrated system.",
   description:
-    "GrowValley is a business scaling ecosystem that enables established businesses to reach their full potential through integrated advisory in growth, capital, and innovation.",
-  capabilitiesLeadIn: "— We operate through five deeply integrated advisory capabilities:",
+    "GrowValley Advisory operates through five deeply integrated advisory capabilities — designed to work as one mandate, not five separate engagements.",
+  /** Optional transition line before pillar list; leave empty to omit. */
+  capabilitiesLeadIn: "",
 };

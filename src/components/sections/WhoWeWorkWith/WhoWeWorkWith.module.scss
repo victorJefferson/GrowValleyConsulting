@@ -56,6 +56,34 @@
     }
 }
 
+/* Homepage: last row of tiles centers when the row is incomplete */
+.gridCentered {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    @media (min-width: 1024px) {
+        gap: 1.25rem;
+    }
+}
+
+.tileFlex {
+    flex: 1 1 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    @media (min-width: 640px) {
+        flex: 0 1 calc(50% - 0.5rem);
+        max-width: calc(50% - 0.5rem);
+    }
+
+    @media (min-width: 1024px) {
+        flex: 0 1 calc(33.333% - 0.85rem);
+        max-width: calc(33.333% - 0.85rem);
+    }
+}
+
 .tile {
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius-card);

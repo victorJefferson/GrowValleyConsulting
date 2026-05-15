@@ -38,8 +38,8 @@ export function Navbar({ settings }: { settings?: any }) {
         { name: "Growth Advisory", href: "/our-capabilities/growth-advisory", description: "Strategy, performance, and governance for established businesses." },
         { name: "Capital Advisory", href: "/our-capabilities/capital-advisory", description: "Investment readiness, structuring, and transaction preparation." },
         { name: "Innovation Advisory", href: "/our-capabilities/innovation-advisory", description: "Venture studios, innovation engines, and next-generation product builds." },
-        { name: "PMO", href: "/our-capabilities/pmo", description: "Enterprise-grade Project Management Offices for complex transformation programs." },
-        { name: "Family Office Setup", href: "/our-capabilities/family-office-setup", description: "Governance, structuring, and operating models for multi-generational wealth." },
+        { name: "Project Advisory", href: "/our-capabilities/project-advisory", description: "Enterprise-grade project management systems for visibility, accountability, and delivery across your portfolio." },
+        { name: "Family Office Advisory", href: "/our-capabilities/family-office-advisory", description: "Structure, governance, and generational discipline — governance frameworks, investment operating models, and foundations for wealth across generations." },
       ]
     },
     { name: "Expertise", href: "/expertise" },
@@ -227,11 +227,13 @@ export function Navbar({ settings }: { settings?: any }) {
                                 </DisclosureButton>
                               </Link>
                             ))}
-                            <Link href={link.href} onClick={() => close()}>
-                              <DisclosureButton as="span" className={styles.mobileOverviewLink}>
-                                {link.name} Overview <ArrowRight size={16} />
-                              </DisclosureButton>
-                            </Link>
+                            {link.href !== "/our-capabilities" ? (
+                              <Link href={link.href} onClick={() => close()}>
+                                <DisclosureButton as="span" className={styles.mobileOverviewLink}>
+                                  {link.name} Overview <ArrowRight size={16} />
+                                </DisclosureButton>
+                              </Link>
+                            ) : null}
                           </DisclosurePanel>
                         </>
                       )}

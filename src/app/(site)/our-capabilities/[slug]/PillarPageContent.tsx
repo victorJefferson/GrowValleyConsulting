@@ -47,15 +47,17 @@ const INNOVATION_ADVISORY_SERVICE_ORDER = [
   "community-venture-studios",
 ];
 
-/** Canonical display order for PMO pillar services. */
-const PMO_SERVICE_ORDER = [
+/** Canonical display order for Project Advisory pillar services. */
+const PROJECT_ADVISORY_SERVICE_ORDER = [
   "strategy-and-design",
   "portfolio-tracking",
   "risk-and-issue-management",
+  "project-feasibility",
+  "project-investment-readiness",
   "capability-building-and-handover",
 ];
 
-/** Canonical display order for Family Office Setup pillar services. */
+/** Canonical display order for Family Office Advisory pillar services. */
 const FAMILY_OFFICE_SETUP_SERVICE_ORDER = [
   "governance-and-structure",
   "wealth-structuring",
@@ -72,9 +74,9 @@ function sortPillarServices(services: any[] | undefined, pillarSlug: string) {
         ? CAPITAL_ADVISORY_SERVICE_ORDER
         : pillarSlug === "innovation-advisory"
           ? INNOVATION_ADVISORY_SERVICE_ORDER
-          : pillarSlug === "pmo"
-            ? PMO_SERVICE_ORDER
-            : pillarSlug === "family-office-setup"
+          : pillarSlug === "project-advisory"
+            ? PROJECT_ADVISORY_SERVICE_ORDER
+            : pillarSlug === "family-office-advisory"
               ? FAMILY_OFFICE_SETUP_SERVICE_ORDER
               : [];
   return [...services].sort((a, b) => {
@@ -357,13 +359,8 @@ export function PillarPageContent({
       {servicesSorted.length > 0 && (
         <section className={`section-padding ${styles.capabilitiesSection}`}>
           <div className="container">
-            {(pillarData.servicesEyebrow ||
-              pillarData.servicesHeadline ||
-              pillarData.servicesSubheadline) && (
+            {(pillarData.servicesHeadline || pillarData.servicesSubheadline) && (
               <header className={styles.capabilitiesHeader}>
-                {pillarData.servicesEyebrow && (
-                  <span className={styles.capabilitiesEyebrow}>{pillarData.servicesEyebrow}</span>
-                )}
                 {pillarData.servicesHeadline && (
                   <h2 className={styles.capabilitiesTitle}>{pillarData.servicesHeadline}</h2>
                 )}

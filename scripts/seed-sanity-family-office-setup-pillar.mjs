@@ -1,5 +1,6 @@
 /**
- * Family Office Setup pillar landing + four services (pillar card fields).
+ * Family Office Advisory — pillar landing, hero, impact stats, and four services.
+ * Pillar document `_id` remains `pillar-consulting-family-office-setup`; public slug is `family-office-advisory`.
  * Run: node --env-file=.env scripts/seed-sanity-family-office-setup-pillar.mjs
  */
 import { createClient } from "@sanity/client";
@@ -20,68 +21,15 @@ const client = createClient({
   apiVersion: "2024-03-01",
 });
 
-const serviceLanding = [
-  {
-    _id: "service-consulting-governance-and-structure",
-    pillarLandingTagline:
-      "Defining how the family office is governed, who is accountable, and how decisions are made.",
-    pillarLandingBullets: [
-      "Family office strategy & mandate design",
-      "Governance framework & family constitution",
-      "Investment policy statement (IPS) development",
-      "Family council & board structure design",
-      "Succession & continuity planning frameworks",
-      "Decision-rights & accountability models",
-    ],
-    pillarLandingOutcome:
-      "A family office governed by a clear mandate, not by habit.",
-  },
-  {
-    _id: "service-consulting-wealth-structuring",
-    pillarLandingTagline:
-      "Designing the holding architecture that protects, separates, and optimises family wealth.",
-    pillarLandingBullets: [
-      "Wealth structuring & holding architecture",
-      "Multi-jurisdiction structuring where applicable",
-      "Tax-efficient vehicle design",
-      "Asset protection & ring-fencing",
-      "Business and personal wealth separation",
-      "Regulatory and compliance structuring",
-    ],
-    pillarLandingOutcome:
-      "Family wealth structured for protection, growth, and generational transfer.",
-  },
-  {
-    _id: "service-consulting-investment-operations",
-    pillarLandingTagline:
-      "Building the investment infrastructure that allows capital to be deployed with discipline.",
-    pillarLandingBullets: [
-      "Investment mandate & portfolio strategy",
-      "Asset allocation framework",
-      "Investment committee structure & process",
-      "Manager selection & due diligence framework",
-      "Co-investment & direct investment protocols",
-      "Performance tracking & attribution",
-    ],
-    pillarLandingOutcome:
-      "Capital deployed with discipline, visibility, and clear accountability.",
-  },
-  {
-    _id: "service-consulting-long-term-management",
-    pillarLandingTagline:
-      "Sustaining performance, governance, and relevance across generations.",
-    pillarLandingBullets: [
-      "Ongoing advisory & governance support",
-      "Annual investment review & strategy refresh",
-      "Family education & financial literacy programs",
-      "Next-generation onboarding & preparation",
-      "Family governance evolution as the family grows",
-      "Reporting to family stakeholders",
-    ],
-    pillarLandingOutcome:
-      "A family office that serves the family across generations, not just the current one.",
-  },
-];
+const PILLAR_REF = "pillar-consulting-family-office-setup";
+/** Public URL segment (`/our-capabilities/...`). Pillar `_id` stays `pillar-consulting-family-office-setup`. */
+const PILLAR_SLUG = "family-office-advisory";
+const HERO_ID = "hero-consulting-family-office-advisory";
+/** Legacy hero `_id` from when the page slug was `family-office-setup`. */
+const LEGACY_HERO_IDS = ["hero-consulting-family-office-setup", "hero-consulting-family-office-advisory"];
+
+const challengesIntro =
+  "Most family offices are built reactively — after a liquidity event creates urgency or after the absence of structure has already created problems.\n\nWe are typically engaged when families face:";
 
 const challengesBullets = [
   "Business and personal wealth not structurally separated",
@@ -90,6 +38,9 @@ const challengesBullets = [
   "Operational dependence on a single individual with no succession plan",
   "Reporting that is inconsistent, opaque, or entirely externally managed",
 ];
+
+const challengesClosing =
+  "GVA addresses these challenges before they become crises — or restructures the family office when they already have.";
 
 const stats = [
   { _key: "st1", number: "$3B+", label: "Revenues" },
@@ -103,19 +54,162 @@ const stats = [
   { _key: "st5", number: "", label: "Delivered through Innovation Advisory" },
 ];
 
-const tx = client.transaction();
+const engagementModels = [
+  "Family office strategy, mandate, and governance design",
+  "Governance and investment framework design",
+  "Family office restructuring and professionalisation",
+  "Ongoing family office advisory retainer",
+  "Next-generation preparation programs",
+];
 
-for (const s of serviceLanding) {
-  tx.patch(s._id, {
-    set: {
-      pillarLandingTagline: s.pillarLandingTagline,
-      pillarLandingBullets: s.pillarLandingBullets,
-      pillarLandingOutcome: s.pillarLandingOutcome,
+const engagementOutcomes = [
+  "Disciplined portfolio strategy and deployment",
+  "Clear governance and risk frameworks",
+  "Alignment between family objectives and enterprise growth",
+  "A family office that functions as an institution across generations",
+];
+
+const serviceDefs = [
+  {
+    _id: "service-consulting-governance-and-structure",
+    title: "Governance & Structure",
+    slug: "governance-and-structure",
+    description:
+      "Defining how the family office is governed, who is accountable, and how decisions are made.",
+    pillarLandingTagline:
+      "Defining how the family office is governed, who is accountable, and how decisions are made.",
+    pillarLandingBullets: [
+      "Family office strategy & mandate design",
+      "Governance framework & family constitution",
+      "Investment policy statement (IPS) development",
+      "Family council & board structure design",
+      "Succession & continuity planning frameworks",
+      "Decision-rights & accountability models",
+    ],
+    pillarLandingOutcome:
+      "A family office governed by a clear mandate, not by habit.",
+    heroLead: "Mandate. Accountability. Continuity.",
+  },
+  {
+    _id: "service-consulting-wealth-structuring",
+    title: "Wealth Structuring",
+    slug: "wealth-structuring",
+    description:
+      "Designing the holding architecture that protects, separates, and optimises family wealth.",
+    pillarLandingTagline:
+      "Designing the holding architecture that protects, separates, and optimises family wealth.",
+    pillarLandingBullets: [
+      "Wealth structuring & holding architecture",
+      "Multi-jurisdiction structuring where applicable",
+      "Tax-efficient vehicle design",
+      "Asset protection & ring-fencing",
+      "Business and personal wealth separation",
+      "Regulatory and compliance structuring",
+    ],
+    pillarLandingOutcome:
+      "Family wealth structured for protection, growth, and generational transfer.",
+    heroLead: "Architecture. Protection. Clarity.",
+  },
+  {
+    _id: "service-consulting-investment-operations",
+    title: "Investment Operations",
+    slug: "investment-operations",
+    description:
+      "Building the investment infrastructure that allows capital to be deployed with discipline.",
+    pillarLandingTagline:
+      "Building the investment infrastructure that allows capital to be deployed with discipline.",
+    pillarLandingBullets: [
+      "Investment mandate & portfolio strategy",
+      "Asset allocation framework",
+      "Investment committee structure & process",
+      "Manager selection & due diligence framework",
+      "Co-investment & direct investment protocols",
+      "Performance tracking & attribution",
+    ],
+    pillarLandingOutcome:
+      "Capital deployed with discipline, visibility, and clear accountability.",
+    heroLead: "Discipline. Visibility. Accountability.",
+  },
+  {
+    _id: "service-consulting-long-term-management",
+    title: "Long-Term Management",
+    slug: "long-term-management",
+    description:
+      "Sustaining performance, governance, and relevance across generations.",
+    pillarLandingTagline:
+      "Sustaining performance, governance, and relevance across generations.",
+    pillarLandingBullets: [
+      "Ongoing advisory & governance support",
+      "Annual investment review & strategy refresh",
+      "Family education & financial literacy programs",
+      "Next-generation onboarding & preparation",
+      "Family governance evolution as the family grows",
+      "Reporting to family stakeholders",
+    ],
+    pillarLandingOutcome:
+      "A family office that serves the family across generations, not just the current one.",
+    heroLead: "Continuity. Education. Evolution.",
+  },
+];
+
+function serviceDocument(def) {
+  const heroSub = `${def.heroLead}\n\n${def.pillarLandingTagline}`;
+  const featureGridBody = `Typical engagement models include: ${engagementModels.join("; ")}.`;
+
+  return {
+    _id: def._id,
+    _type: "service-consulting",
+    title: def.title,
+    slug: { _type: "slug", current: def.slug },
+    pillar: { _type: "reference", _ref: PILLAR_REF },
+    description: def.description,
+    pillarLandingTagline: def.pillarLandingTagline,
+    pillarLandingBullets: def.pillarLandingBullets,
+    pillarLandingOutcome: def.pillarLandingOutcome,
+    heroHeadline: def.title,
+    heroSubheadline: heroSub,
+    heroCtaLabel: "Talk to Our Advisor",
+    heroCtaLink: "/contact",
+    problemHeadline: "The Challenges We Solve",
+    problemBody: `${challengesIntro}`,
+    problemBullets: challengesBullets,
+    problemCtaLabel: "Talk to Our Advisor",
+    problemCtaLink: "/contact",
+    featureHeadline: def.title,
+    featureBody: `Client outcome: ${def.pillarLandingOutcome}`,
+    featureBullets: def.pillarLandingBullets,
+    featureCtaLabel: "Talk to Our Advisor",
+    featureCtaLink: "/contact",
+    featureGridHeadline: "How We Work",
+    featureGridBody,
+    whatsIncludedHeadline: "Engagement Outcomes",
+    whatsIncluded: {
+      column1: engagementOutcomes.slice(0, 2),
+      column2: engagementOutcomes.slice(2, 4),
     },
-  });
+    ctaHeadline: "Let's get started.",
+    ctaBody:
+      "Build a family office that endures.\n\nStart a family office conversation with GrowValley Advisory.",
+    ctaButtonLabel: "Talk to Our Advisor",
+    ctaButtonLink: "/contact",
+  };
 }
 
-tx.patch("pillar-consulting-family-office-setup", {
+const existingHeroIds = await client.fetch(`*[_type == "hero-consulting" && _id in $ids]._id`, {
+  ids: LEGACY_HERO_IDS,
+});
+
+const tx = client.transaction();
+
+for (const hid of existingHeroIds) {
+  tx.delete(hid);
+}
+
+for (const def of serviceDefs) {
+  tx.createOrReplace(serviceDocument(def));
+}
+
+tx.patch(PILLAR_REF, {
   unset: [
     "featuredInsights",
     "insightsHeadline",
@@ -124,18 +218,20 @@ tx.patch("pillar-consulting-family-office-setup", {
     "approachBody",
   ],
   set: {
-    heroHeadline: "Family Office Setup",
+    title: "Family Office Advisory",
+    slug: { _type: "slug", current: PILLAR_SLUG },
+    heroHeadline: "Family Office Advisory",
     heroSubheadline:
       "Structure. Governance. Generational Discipline.\n\nWe help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
     challengesHeadline: "The Challenges We Solve",
-    challengesIntro:
-      "Most family offices are built reactively — after a liquidity event creates urgency or after the absence of structure has already created problems.\n\nWe are typically engaged when families face:",
+    challengesIntro,
     challengesBullets,
-    challengesClosing:
-      "GVC addresses these challenges before they become crises — or restructures the family office when they already have.",
-    servicesEyebrow: "OUR FAMILY OFFICE SETUP CAPABILITIES",
-    servicesHeadline: "Our Family Office Setup Capabilities",
+    challengesClosing,
+    servicesEyebrow: "OUR FAMILY OFFICE ADVISORY CAPABILITIES",
+    servicesHeadline: "Our Family Office Advisory Capabilities",
     servicesSubheadline: "",
+    aboutUsSubtitle:
+      "Structure, governance, and generational discipline — frameworks and operating models for family wealth across generations.",
     cardGridEyebrow: "WHO WE WORK WITH",
     cardGridHeadline: "Who We Work With",
     cardGridBody: "",
@@ -150,23 +246,12 @@ tx.patch("pillar-consulting-family-office-setup", {
     whoWeWorkWithCtaLabel: "Talk to Our Advisor",
     whoWeWorkWithCtaHref: "/contact",
     engagementModelsHeadline: "Engagement Models",
-    engagementModels: [
-      "Family office strategy and setup",
-      "Governance and investment framework design",
-      "Family office restructuring and professionalisation",
-      "Ongoing family office advisory retainer",
-      "Next-generation preparation programs",
-    ],
+    engagementModels,
     engagementOutcomesHeadline: "Engagement Outcomes",
-    engagementOutcomes: [
-      "Disciplined portfolio strategy and deployment",
-      "Clear governance and risk frameworks",
-      "Alignment between family objectives and enterprise growth",
-      "A family office that functions as an institution across generations",
-    ],
+    engagementOutcomes,
     nextSectionTitle: "Let's get started.",
     nextSectionBody:
-      "Build a family office that endures.\n\nStart a family office conversation with GrowValley Consulting.",
+      "Build a family office that endures.\n\nStart a family office conversation with GrowValley Advisory.",
     nextSectionCtaLabel: "Talk to Our Advisor",
     nextSectionCtaHref: "/contact",
     stats,
@@ -177,18 +262,21 @@ tx.patch("pillar-consulting-family-office-setup", {
 });
 
 tx.createOrReplace({
-  _id: "hero-consulting-family-office-setup",
+  _id: HERO_ID,
   _type: "hero-consulting",
-  pageSlug: "family-office-setup",
-  eyebrow: "FAMILY OFFICE SETUP",
-  headline: "Family Office Setup",
+  pageSlug: PILLAR_SLUG,
+  eyebrow: "FAMILY OFFICE ADVISORY",
+  headline: "Family Office Advisory",
   subheadline:
     "Structure. Governance. Generational Discipline.\n\nWe help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
   hasCTA: true,
   ctaText: "Talk to Our Advisor",
   ctaHref: "/contact",
+  trustBarText:
+    "Trusted by leading governments, corporates, and innovators across the region.",
 });
 
 const res = await tx.commit();
-console.log("Family Office Setup pillar seed complete.");
+console.log("Family Office Advisory pillar seed complete.");
+console.log("Services upserted:", serviceDefs.length);
 console.log("Transaction:", res.transactionId);

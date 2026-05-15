@@ -1,9 +1,9 @@
 /** Full singleton body for `solutions-consulting-main` matching schema defaults (`solutions-consulting.ts`). */
 export const solutionsConsultingDefaultsPayload = {
-  headline: "The GrowValley Ecosystem",
+  headline: "Five capabilities. One integrated system.",
   description:
-    "GrowValley is a business scaling ecosystem that enables established businesses to reach their full potential through integrated advisory in growth, capital, and innovation.",
-  capabilitiesLeadIn: "— We operate through five deeply integrated advisory capabilities:",
+    "GrowValley Advisory operates through five deeply integrated advisory capabilities — designed to work as one mandate, not five separate engagements.",
+  capabilitiesLeadIn: "",
   items: [
     {
       _key: "growth-advisory",
@@ -58,17 +58,17 @@ export const solutionsConsultingDefaultsPayload = {
       href: "/our-capabilities/pmo",
     },
     {
-      _key: "family-office-setup",
-      id: "family-office-setup",
-      title: "Family Office Setup",
+      _key: "family-office-advisory",
+      id: "family-office-advisory",
+      title: "Family Office Advisory",
       tagline: "Structuring governance for enduring wealth.",
       body: "We help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
       subtitle:
         "Structuring, governing, and managing family wealth for the long term. We help families build the governance frameworks, investment operating models, and structural foundations that allow wealth to be managed, preserved, and grown across generations.",
       howNeedsMet:
         "Structure, mandates, succession alignment – engineered for multi-generational governance.",
-      ctaPrompt: "Discuss Family Office Structures Today.",
-      href: "/our-capabilities/family-office-setup",
+      ctaPrompt: "Discuss Family Office Advisory Today.",
+      href: "/our-capabilities/family-office-advisory",
     },
   ],
 };

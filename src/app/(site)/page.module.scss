@@ -728,16 +728,12 @@
     }
 
     .problemCardsRow {
-        display: grid;
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 1rem;
         max-width: var(--max-width-container);
         margin: 0 auto 2.5rem;
-
-        @media (min-width: 900px) {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.35rem;
-        }
     }
 
     .problemCard {
@@ -750,6 +746,19 @@
         background: hsla(var(--primary-h), 10%, 10%, 0.55);
         border: 1px solid hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.42);
         box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.12);
+        flex: 1 1 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        @media (min-width: 640px) {
+            flex: 0 1 calc(50% - 0.5rem);
+            max-width: calc(50% - 0.5rem);
+        }
+
+        @media (min-width: 900px) {
+            flex: 0 1 calc(33.333% - 0.9rem);
+            max-width: calc(33.333% - 0.9rem);
+        }
     }
 
     .problemX {
@@ -1020,13 +1029,10 @@
     }
 
     .expertiseGrid {
-        display: grid;
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 0.95rem;
-
-        @media (min-width: 720px) {
-            grid-template-columns: repeat(2, 1fr);
-        }
 
         @media (min-width: 1024px) {
             gap: 1.1rem;
@@ -1041,6 +1047,14 @@
         padding: 1.05rem 1.25rem;
         background: hsla(var(--primary-h), 10%, 10%, 0.72);
         border: 1px solid var(--color-border-subtle);
+        flex: 1 1 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        @media (min-width: 720px) {
+            flex: 0 1 calc(50% - 0.475rem);
+            max-width: calc(50% - 0.475rem);
+        }
 
         p {
             margin: 0;
@@ -1061,13 +1075,43 @@
     }
 }
 
+/* GVV / GVA / GVW strip (exactly three bullets): one row, equal widths */
+.homeExpertiseBand.homeExpertiseBandEcosystemRow {
+    .expertiseGrid {
+        @media (min-width: 640px) {
+            flex-wrap: nowrap;
+            justify-content: center;
+        }
+    }
+
+    .dot {
+        display: none;
+    }
+
+    .expertisePill {
+        justify-content: center;
+        text-align: center;
+
+        p {
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: none;
+        }
+    }
+}
+
 .homeFinaleBand {
+    --finale-copy-max: min(48rem, 92vw);
     padding: clamp(3.5rem, 9vw, 6rem) calc(var(--section-gap) / 2);
     background-color: var(--color-white);
 
     .finaleLine {
         margin: 0 auto 2rem;
-        max-width: 32rem;
+        max-width: var(--finale-copy-max);
         text-align: center;
         font-size: clamp(1.15rem, 2.8vw, 1.65rem);
         line-height: 1.42;

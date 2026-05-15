@@ -111,6 +111,8 @@ export default function HomeContent({
       ? (h.topExpertiseBullets as string[])
       : SEED.topExpertiseBullets;
 
+  const expertiseEcosystemRow = expertiseBullets.length === 3;
+
   const finaleStatement = pick<string>(h.finaleStatement as string, SEED.finaleStatement)!;
   const finaleHref = pick<string>(h.finaleCtaLink as string, "/contact")!;
   const finaleAdvisor = pick<string>(h.finaleCtaText as string, ADVISOR_LABEL)!;
@@ -267,6 +269,7 @@ export default function HomeContent({
       </section>
 
       <Solutions
+        layout="centered"
         cmsData={solutionsData as never}
         advisorHref={solutionsAdvisorHref}
         advisorLabel={solutionsAdvisorLabel}
@@ -283,7 +286,7 @@ export default function HomeContent({
         </div>
       </section>
 
-      <WhoWeWorkWith cmsData={whoWeWorkWithData as never} />
+      <WhoWeWorkWith layout="centered" cmsData={whoWeWorkWithData as never} />
 
       <section className={styles.homeMissionBand}>
         <div className="container">
@@ -331,7 +334,9 @@ export default function HomeContent({
         </div>
       </section>
 
-      <section className={styles.homeExpertiseBand} aria-labelledby="expertise-heading">
+      <section
+        className={`${styles.homeExpertiseBand} ${expertiseEcosystemRow ? styles.homeExpertiseBandEcosystemRow : ""}`}
+        aria-labelledby="expertise-heading">
         <div className="container">
           <h2 id="expertise-heading" className={styles.sectionTitleCenter}>
             {expertiseHeadline}

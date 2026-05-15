@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/our-capabilities/family-office-setup',
+        destination: '/our-capabilities/family-office-advisory',
+        permanent: true,
+      },
+      {
         source: '/our-expertise',
         destination: '/our-capabilities',
         permanent: true,

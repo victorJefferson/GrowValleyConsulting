@@ -51,7 +51,8 @@ export function Hero({
     const showTrustRail = !isShort && Boolean(trustBarText?.trim());
 
     return (
-        <section className={`${styles.heroSection} ${isShort ? styles.isShort : ""} ${showTrustRail ? styles.hasTrustRail : ""}`}>
+        <section
+            className={`${styles.heroSection} ${isShort ? styles.isShort : ""} ${showTrustRail ? styles.hasTrustRail : ""}`}>
             <img src={heroImageSrc} alt="" aria-hidden className={styles.heroBg} />
             <div className={styles.heroOverlay} aria-hidden />
 

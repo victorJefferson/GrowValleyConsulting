@@ -24,8 +24,11 @@ const GRID_SIZE = 6;
 
 export const WhoWeWorkWith = ({
   cmsData,
+  layout = "default",
 }: {
   cmsData?: { headline?: string; description?: string; categories?: Category[] };
+  /** Homepage: center flex rows so an incomplete last row stays centered. */
+  layout?: "default" | "centered";
 }) => {
   const displayHeadline = cmsData?.headline || "Who We Work With";
   const displayIntro = cmsData?.description?.trim() || SECTION_FALLBACK_DESCRIPTION;
@@ -53,7 +56,8 @@ export const WhoWeWorkWith = ({
           <p className={styles.intro}>{displayIntro}</p>
           <span className={styles.headerRule} aria-hidden />
         </div>
-        <div className={styles.grid}>
+        <div
+          className={`${styles.grid} ${layout === "centered" ? styles.gridCentered : ""}`}>
           {Array.from({ length: GRID_SIZE }).map((_, index) => {
             const { title, iconName, description } = getCardData(index);
             const IconComponent =
@@ -61,7 +65,9 @@ export const WhoWeWorkWith = ({
               (Icons as unknown as Record<string, React.ElementType>)[iconName];
 
             return (
-              <article key={`${title}-${index}`} className={styles.tile}>
+              <article
+                key={`${title}-${index}`}
+                className={`${styles.tile} ${layout === "centered" ? styles.tileFlex : ""}`}>
                 {description ? <span className="sr-only">{description}</span> : null}
                 <div className={styles.iconRing} aria-hidden>
                   {IconComponent ? <IconComponent className={styles.icon} size={22} strokeWidth={1.35} /> : null}
