@@ -7,7 +7,7 @@ import { siteConfig } from "../../config/siteConfig";
 import { MaintenanceMode } from "../../components/ui/MaintenanceMode";
 
 import { client } from "../../lib/sanity";
-import { siteSettingsQuery } from "../../lib/queries";
+import { serviceCategoriesQuery, siteSettingsQuery } from "../../lib/queries";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
@@ -21,8 +21,12 @@ export default async function SiteLayout({
   }
 
   let siteSettings = null;
+  let pillars: { title?: string; slug?: string }[] = [];
   try {
-    siteSettings = await client.fetch(siteSettingsQuery);
+    [siteSettings, pillars] = await Promise.all([
+      client.fetch(siteSettingsQuery),
+      client.fetch(serviceCategoriesQuery),
+    ]);
   } catch (e) {
     console.error("Error fetching site settings:", e);
   }
@@ -33,7 +37,7 @@ export default async function SiteLayout({
       <main className="siteWrapper">
         {children}
       </main>
-      <Footer settings={siteSettings} />
+      <Footer settings={siteSettings} pillars={pillars} />
       <FloatingContact />
     </TrustGuard>
   );

@@ -1,381 +1,459 @@
 "use client";
 
 import React from "react";
-import { Hero } from "@/components/ui/Hero";
-import { ImpactBand } from "@/components/ui/ImpactBand";
 import Link from "next/link";
-import { urlFor } from "@/lib/sanity";
-import { InsightsCarousel, InsightItem } from "@/components/ui/InsightsCarousel";
-import { Solutions } from "@/components/sections/Solutions/Solutions";
-import { WhoWeWorkWith } from "@/components/sections/WhoWeWorkWith/WhoWeWorkWith";
-import styles from "./page.module.scss";
+import { ArrowRight, X } from "lucide-react";
+import { getHomeWhoIcon } from "@/config/homeWhoIcons";
+import { Hero, type StackedHeroLine } from "@/components/ui/Hero";
 import { Button } from "@/components/ui/Button";
-import { features } from "@/config/features";
-import {
-  ADVISOR_LABEL,
-  DATA_SECTION_FALLBACK_IMPACT_STATS,
-  DATA_SECTION_FALLBACK_META,
-  HERO_FALLBACK_HOME,
-  HOMEPAGE_CONSULTING_INITIAL,
-  IMPACT_BAND_EYEBROW_FALLBACK,
-  STACKED_LINES_FALLBACK_HOME,
-  TRUST_BAR_FALLBACK,
-} from "@/config/homepageContent.defaults";
-import { X } from "lucide-react";
-import { ArrowRight } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { urlFor } from "@/lib/sanity";
+import styles from "./home.module.scss";
+
+type HomeStat = {
+  metricValue?: string;
+  metricLabel?: string;
+  supportingLabel?: string;
+};
+
+type WhoClientType = {
+  label?: string;
+  icon?: string;
+};
+
+type HomeServiceBlock = {
+  title?: string;
+  shortDescription?: string;
+  supportingCopy?: string;
+  featureHighlights?: string[];
+  sideCardEyebrow?: string;
+  sideCardHeadline?: string;
+  sideCardCtaText?: string;
+  sideCardCtaHref?: string;
+  pillarHref?: string;
+};
 
 interface HomeContentProps {
   heroData: Record<string, unknown> | null;
-  insights: unknown[];
-  dataSectionData: Record<string, unknown> | null;
-  whoWeWorkWithData?: Record<string, unknown> | null;
-  solutionsData?: Record<string, unknown> | null;
-  homePageSettings?: Record<string, unknown> | null;
-  siteSettings?: Record<string, unknown> | null;
+  homePage?: Record<string, unknown> | null;
 }
 
-const SEED = HOMEPAGE_CONSULTING_INITIAL;
-
-function pick<T>(...vals: (T | undefined | null)[]): T | undefined {
-  for (const v of vals) {
-    if (v !== undefined && v !== null && v !== "") return v as T;
-  }
-  return undefined;
+function str(v: unknown): string {
+  return typeof v === "string" ? v : "";
 }
 
-export default function HomeContent({
-  heroData,
-  insights,
-  dataSectionData,
-  whoWeWorkWithData,
-  solutionsData,
-  homePageSettings,
-  siteSettings,
-}: HomeContentProps) {
-  const h = homePageSettings || {};
+function arr<T>(v: unknown): T[] {
+  return Array.isArray(v) ? (v as T[]) : [];
+}
 
-  const problemsEyebrow = pick<string>(h.problemsEyebrow as string, SEED.problemsEyebrow)!;
-  const problemsHeadline = pick<string>(h.problemsHeadline as string, SEED.problemsHeadline)!;
-  const problemsLeadParagraph = pick<string>(
-    h.problemsLeadParagraph as string,
-    SEED.problemsLeadParagraph,
-  )!;
-  const problemsMutedLead = pick<string>(h.problemsMutedLead as string, SEED.problemsMutedLead)!;
-  const problemCards =
-    Array.isArray(h.problemCards) && (h.problemCards as string[]).length
-      ? (h.problemCards as string[])
-      : SEED.problemCards;
-  const problemsClosing = pick<string>(h.problemsClosing as string, SEED.problemsClosing)!;
+export default function HomeContent({ heroData, homePage }: HomeContentProps) {
+  const h = homePage ?? {};
 
-  const bridgeStatement = pick<string>(h.bridgeStatement as string, SEED.bridgeStatement)!;
-  const bridgeHref = pick<string>(h.bridgeCtaLink as string, "/contact")!;
-  const bridgeAdvisor = pick<string>(h.bridgeCtaText as string, ADVISOR_LABEL)!;
+  const stats = arr<HomeStat>(h.stats);
+  const painPointCards = arr<string>(h.painPointCards);
+  const serviceBlocks = arr<HomeServiceBlock>(h.serviceBlocks);
+  const whoClientTypes = arr<WhoClientType>(h.whoClientTypes);
+  const whyBullets = arr<string>(h.whyBullets);
+  const expertiseItems = arr<string>(h.expertiseItems);
 
-  const integratedEyebrow = pick<string>(h.integratedEyebrow as string, SEED.integratedEyebrow)!;
-  const integratedBody = pick<string>(h.integratedBody as string, SEED.integratedBody)!;
-
-  const missionStatement = pick<string>(h.missionStatement as string, SEED.missionStatement)!;
-  const missionHref = pick<string>(h.missionCtaLink as string, "/contact")!;
-  const missionAdvisor = pick<string>(h.missionCtaText as string, ADVISOR_LABEL)!;
-
-  const whyGrowthHeadline = pick<string>(h.whyGrowthHeadline as string, SEED.whyGrowthHeadline)!;
-  const whyGrowthBody = pick<string>(h.whyGrowthBody as string, SEED.whyGrowthBody)!;
-  const whyGrowthEyebrow = pick<string>(h.whyGrowthEyebrow as string, SEED.whyGrowthEyebrow)!;
-  const whyGrowthItalic = pick<string>(h.whyGrowthItalic as string, SEED.whyGrowthItalic)!;
-  const coreEyebrow = pick<string>(
-    h.coreExcellenceEyebrow as string,
-    SEED.coreExcellenceEyebrow,
-  )!;
-  const coreBullets =
-    Array.isArray(h.coreExcellenceBullets) && (h.coreExcellenceBullets as string[]).length
-      ? (h.coreExcellenceBullets as string[])
-      : SEED.coreExcellenceBullets;
-  const whyGrowthClosingLine = pick<string>(
-    h.whyGrowthClosingLine as string,
-    SEED.whyGrowthClosingLine,
-  )!;
-  const whyGrowthHref = pick<string>(h.whyGrowthCtaLink as string, "/contact")!;
-  const whyGrowthAdvisor = pick<string>(h.whyGrowthCtaText as string, ADVISOR_LABEL)!;
-
-  const expertiseHeadline = pick<string>(
-    h.topExpertiseHeadline as string,
-    SEED.topExpertiseHeadline,
-  )!;
-  const expertiseSub = pick<string>(
-    h.topExpertiseSubhead as string,
-    SEED.topExpertiseSubhead,
-  )!;
-  const expertiseLead = pick<string>(h.topExpertiseLead as string, SEED.topExpertiseLead)!;
-  const expertiseBullets =
-    Array.isArray(h.topExpertiseBullets) && (h.topExpertiseBullets as string[]).length
-      ? (h.topExpertiseBullets as string[])
-      : SEED.topExpertiseBullets;
-
-  const expertiseEcosystemRow = expertiseBullets.length === 3;
-
-  const finaleStatement = pick<string>(h.finaleStatement as string, SEED.finaleStatement)!;
-  const finaleHref = pick<string>(h.finaleCtaLink as string, "/contact")!;
-  const finaleAdvisor = pick<string>(h.finaleCtaText as string, ADVISOR_LABEL)!;
-
-  const insightsCarouselTitle = pick<string>(
-    h.insightsCarouselTitle as string,
-    SEED.insightsCarouselTitle,
-  )!;
-  const insightsCarouselDescription = pick<string>(
-    h.insightsCarouselDescription as string,
-    SEED.insightsCarouselDescription,
-  )!;
-
-  const solutionsAdvisorHref = pick<string>(h.solutionsAdvisorCtaHref as string, SEED.solutionsAdvisorCtaHref)!;
-  const solutionsAdvisorLabel = pick<string>(h.solutionsAdvisorCtaText as string, SEED.solutionsAdvisorCtaText)!;
-
-  const defaultHero = { ...HERO_FALLBACK_HOME };
-
-  const displayHero = { ...defaultHero, ...(heroData || {}) };
-
-  const cmsStacked = Array.isArray(heroData?.stackedLines)
-    ? (heroData!.stackedLines as { text?: string; muted?: boolean }[]).filter((l) => l?.text)
-    : [];
-
-  const hasUploadedImage = Boolean(
-    heroData?.image &&
-      typeof heroData.image === "object" &&
-      heroData.image !== null &&
-      "asset" in heroData.image &&
-      (heroData.image as { asset?: unknown }).asset,
+  const cmsStacked = arr<{ text?: string; muted?: boolean }>(heroData?.stackedLines).filter(
+    (l) => l?.text,
   );
-
-  const useImmersive =
-    heroData?.immersionMode === false
-      ? false
-      : heroData?.immersionMode === true ||
-        cmsStacked.length > 0 ||
-        ((heroData === null || !hasUploadedImage) && heroData?.immersionMode !== false);
-
-  const stackedLines = useImmersive
-    ? cmsStacked.length > 0
-      ? cmsStacked.map((l) => ({ text: l.text as string, muted: Boolean(l.muted) }))
-      : STACKED_LINES_FALLBACK_HOME.map((l) => ({ ...l }))
+  const stackedLines: StackedHeroLine[] | undefined = cmsStacked.length
+    ? cmsStacked.map((l) => ({ text: str(l.text), muted: Boolean(l.muted) }))
     : undefined;
 
-  const trustBarText = pick<string>(
-    heroData?.trustBarText as string,
-    siteSettings?.trustedByLine as string,
-    TRUST_BAR_FALLBACK,
-  )!;
-
-  const getHeroImage = () => {
+  const heroImage = (() => {
     if (heroData?.image) {
       try {
         return urlFor(heroData.image as never).url();
       } catch {
-        return "/images/home_image.png";
+        return undefined;
       }
     }
-    return "/images/home_image.png";
-  };
+    return undefined;
+  })();
 
-  type ImpactStatRow = (typeof DATA_SECTION_FALLBACK_IMPACT_STATS)[number];
-  const statsFromCms = (dataSectionData?.stats as ImpactStatRow[]) || [];
-  const displayStats =
-    statsFromCms.length > 0
-      ? statsFromCms.map((s) => ({ ...s, number: Number(s.number) }))
-      : DATA_SECTION_FALLBACK_IMPACT_STATS.map((s) => ({ ...s }));
-
-  const dynamicInsights: InsightItem[] = (insights as Record<string, unknown>[]).map((item) => ({
-    id: item._id as string,
-    title: item.title as string,
-    date: item.publishedAt
-      ? new Date(item.publishedAt as string).toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        })
-      : "",
-    tag: (item.tag as string) || "Insight",
-    image: item.mainImage ? urlFor(item.mainImage as never).url() : "",
-    slug:
-      typeof item.slug === "string"
-        ? item.slug
-        : (item.slug as { current?: string } | undefined)?.current,
-  }));
+  const heroEyebrow = str(heroData?.eyebrow);
+  const heroHeadline = str(heroData?.headline);
+  const heroSub = str(heroData?.subheadline);
+  const heroCta = str(heroData?.ctaText);
+  const heroHref = str(heroData?.ctaHref) || "/contact";
+  const trustBarText = str(heroData?.trustBarText);
+  const hasCTA = heroData?.hasCTA !== false;
 
   return (
-    <main>
+    <main className={styles.homeMain}>
       <Hero
-        eyebrow={displayHero.eyebrow}
-        headline={displayHero.headline}
-        subheadline={displayHero.subheadline}
-        ctaText={displayHero.ctaText}
-        ctaHref={displayHero.ctaHref}
-        hasCTA={Boolean((displayHero as { hasCTA?: boolean }).hasCTA !== false)}
+        eyebrow={heroEyebrow || undefined}
+        headline={stackedLines?.length ? "" : heroHeadline}
+        subheadline={heroSub || undefined}
+        ctaText={heroCta || undefined}
+        ctaHref={heroHref}
+        hasCTA={hasCTA && Boolean(heroCta)}
         stackedLines={stackedLines}
-        trustBarText={trustBarText}
-        image={getHeroImage()}
+        trustBarText={trustBarText || undefined}
+        image={heroImage}
       />
 
-      <ImpactBand
-        eyebrow={pick<string>(dataSectionData?.eyebrow as string, IMPACT_BAND_EYEBROW_FALLBACK)}
-        headline={
-          pick<string>(
-            dataSectionData?.headline as string | undefined,
-            DATA_SECTION_FALLBACK_META.headline,
-          ) ?? undefined
-        }
-        description={
-          pick<string>(
-            dataSectionData?.description as string | undefined,
-            DATA_SECTION_FALLBACK_META.description,
-          ) ?? undefined
-        }
-        stats={displayStats}
-      />
-
-      <section className={styles.homeProblemsBand} aria-labelledby="problems-heading">
-        <div className="container">
-          <p className={styles.sectionEyebrowCenter}>{problemsEyebrow}</p>
-          <h2 id="problems-heading" className={styles.sectionTitleCenter}>
-            {problemsHeadline}
-          </h2>
-          <span className={styles.decorRuleCenter} aria-hidden />
-          <p className={styles.sectionLead}>{problemsLeadParagraph}</p>
-          <p className={styles.sectionMutedCenter}>{problemsMutedLead}</p>
-          <div className={styles.problemCardsRow}>
-            {problemCards.map((text, idx) => (
-              <article key={`${idx}-${text}`} className={styles.problemCard}>
-                <X className={styles.problemX} size={20} aria-hidden strokeWidth={2} />
-                <p className={styles.problemCardBody}>{text}</p>
-              </article>
-            ))}
-          </div>
-          <p className={styles.sectionMutedCenter}>{problemsClosing}</p>
-        </div>
-      </section>
-
-      <section className={styles.homeBridgeBand} aria-label="Statement">
-        <div className="container">
-          <div className={styles.bridgePanel}>
-            <p>{bridgeStatement}</p>
-          </div>
-          <div className={styles.ctaCenter}>
-            <Link href={bridgeHref}>
-              <Button type="button" variant="advisor" size="lg">
-                <span>{bridgeAdvisor}</span>
-                <ArrowRight size={18} aria-hidden strokeWidth={2} />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <Solutions
-        layout="centered"
-        cmsData={solutionsData as never}
-        advisorHref={solutionsAdvisorHref}
-        advisorLabel={solutionsAdvisorLabel}
-      />
-
-      <section className={styles.homeIntegratedBand}>
-        <div className={`container ${styles.integratedWrap}`}>
-          <div className={styles.integratedHead}>
-            <span className={styles.integratedHair} aria-hidden />
-            <span className={styles.integratedLabel}>{integratedEyebrow}</span>
-            <span className={styles.integratedHair} aria-hidden />
-          </div>
-          <p className={styles.integratedBody}>{integratedBody}</p>
-        </div>
-      </section>
-
-      <WhoWeWorkWith layout="centered" cmsData={whoWeWorkWithData as never} />
-
-      <section className={styles.homeMissionBand}>
-        <div className="container">
-          <div className={styles.missionBox}>
-            <p>{missionStatement}</p>
-          </div>
-          <div className={styles.ctaCenter}>
-            <Link href={missionHref}>
-              <Button type="button" variant="advisor" size="lg">
-                <span>{missionAdvisor}</span>
-                <ArrowRight size={18} aria-hidden strokeWidth={2} />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.homeWhyBand}>
-        <div className="container">
-          <div className={styles.whyGrid}>
-            <div className={styles.whyLeftColumn}>
-              <h2 className={styles.whyTitle}>{whyGrowthHeadline}</h2>
-              <span className={styles.whyRule} aria-hidden />
-              <p className={styles.whyBody}>{whyGrowthBody}</p>
-              <p className={styles.whyTinyLabel}>{whyGrowthEyebrow}</p>
-              <p className={styles.whyItalic}>{whyGrowthItalic}</p>
-            </div>
-            <div className={styles.coreCard}>
-              <p className={styles.corePanelLabel}>— {coreEyebrow}</p>
-              <ul className={styles.coreBullets}>
-                {coreBullets.map((text) => (
-                  <li key={text}>{text}</li>
+      {stats.length > 0 && (
+        <section className={styles.statsBand} aria-label="Credibility metrics">
+          <div className="container">
+            <ScrollReveal>
+              <div className={styles.statsGrid}>
+                {stats.map((stat, i) => (
+                  <ScrollReveal key={`${stat.metricLabel}-${i}`} delay={i * 90} variant="fadeUp">
+                    <article className={styles.statItem}>
+                      <span className={styles.statValue}>{stat.metricValue}</span>
+                      <span className={styles.statMetric}>{stat.metricLabel}</span>
+                      <p className={styles.statSupport}>{stat.supportingLabel}</p>
+                    </article>
+                  </ScrollReveal>
                 ))}
-              </ul>
-              <div className={styles.coreRule} aria-hidden />
-              <p className={styles.coreClosing}>{whyGrowthClosingLine}</p>
-              <Link href={whyGrowthHref} className={styles.marginTopAdvisor}>
-                <Button type="button" variant="advisor" size="lg">
-                  <span>{whyGrowthAdvisor}</span>
-                  <ArrowRight size={18} aria-hidden strokeWidth={2} />
-                </Button>
-              </Link>
-            </div>
+              </div>
+            </ScrollReveal>
           </div>
-        </div>
-      </section>
-
-      <section
-        className={`${styles.homeExpertiseBand} ${expertiseEcosystemRow ? styles.homeExpertiseBandEcosystemRow : ""}`}
-        aria-labelledby="expertise-heading">
-        <div className="container">
-          <h2 id="expertise-heading" className={styles.sectionTitleCenter}>
-            {expertiseHeadline}
-          </h2>
-          <p className={styles.sectionSubCenter}>{expertiseSub}</p>
-          <span className={styles.decorRuleCenter} aria-hidden />
-          <p className={styles.sectionLeadNarrow}>{expertiseLead}</p>
-          <div className={styles.expertiseGrid}>
-            {expertiseBullets.map((item) => (
-              <article key={item} className={styles.expertisePill}>
-                <span className={styles.dot} aria-hidden />
-                <p>{item}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {features.insights && (
-        <InsightsCarousel
-          title={insightsCarouselTitle}
-          description={insightsCarouselDescription}
-          insights={dynamicInsights}
-        />
+        </section>
       )}
 
-      <section className={styles.homeFinaleBand}>
-        <div className="container">
-          <p className={styles.finaleLine}>{finaleStatement}</p>
-          <div className={styles.ctaCenter}>
-            <Link href={finaleHref}>
-              <Button type="button" variant="advisor" size="lg">
-                <span>{finaleAdvisor}</span>
-                <ArrowRight size={18} aria-hidden strokeWidth={2} />
-              </Button>
-            </Link>
+      {(str(h.positioningHeadline) || painPointCards.length > 0) && (
+        <section className={styles.positioningBand} aria-labelledby="positioning-heading">
+          <div className="container">
+            <ScrollReveal>
+              <div className={styles.centerBlock}>
+                {str(h.positioningEyebrow) ? (
+                  <p className={styles.eyebrow}>{str(h.positioningEyebrow)}</p>
+                ) : null}
+                {str(h.positioningHeadline) ? (
+                  <h2 id="positioning-heading" className={styles.sectionTitle}>
+                    {str(h.positioningHeadline)}
+                  </h2>
+                ) : null}
+                <span className={styles.decorRule} aria-hidden />
+                {str(h.positioningSupportingCopy) ? (
+                  <p className={styles.lead}>{str(h.positioningSupportingCopy)}</p>
+                ) : null}
+              </div>
+            </ScrollReveal>
+
+            {painPointCards.length > 0 && (
+              <ScrollReveal delay={80}>
+                <div className={styles.painGrid}>
+                  {painPointCards.map((text, idx) => (
+                    <article key={`pain-${idx}`} className={styles.painCard}>
+                      <X size={18} aria-hidden strokeWidth={2} style={{ color: "var(--color-accent)", marginBottom: "0.65rem" }} />
+                      <p>{text}</p>
+                    </article>
+                  ))}
+                </div>
+              </ScrollReveal>
+            )}
+
+            {str(h.positioningStatement) ? (
+              <ScrollReveal delay={120}>
+                <div className={styles.statementCard}>
+                  <p>{str(h.positioningStatement)}</p>
+                </div>
+              </ScrollReveal>
+            ) : null}
+
+            {str(h.positioningCtaText) ? (
+              <ScrollReveal delay={160}>
+                <div className={styles.ctaRow}>
+                  <Link href={str(h.positioningCtaHref) || "/our-capabilities"}>
+                    <Button type="button" variant="advisor" size="lg">
+                      <span>{str(h.positioningCtaText)}</span>
+                      <ArrowRight size={18} aria-hidden strokeWidth={2} />
+                    </Button>
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ) : null}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {(str(h.ecosystemHeadline) || serviceBlocks.length > 0) && (
+        <>
+          {(str(h.ecosystemHeadline) || str(h.ecosystemSupportingCopy)) && (
+            <section className={styles.ecosystemBand} aria-labelledby="ecosystem-heading">
+              <div className="container">
+                <ScrollReveal>
+                  <div className={styles.centerBlock}>
+                    {str(h.ecosystemHeadline) ? (
+                      <h2 id="ecosystem-heading" className={styles.sectionTitle}>
+                        {str(h.ecosystemHeadline)}
+                      </h2>
+                    ) : null}
+                    <span className={styles.decorRule} aria-hidden />
+                    {str(h.ecosystemSupportingCopy) ? (
+                      <p className={`${styles.lead} ${styles.muted}`}>{str(h.ecosystemSupportingCopy)}</p>
+                    ) : null}
+                  </div>
+                </ScrollReveal>
+              </div>
+            </section>
+          )}
+
+          {serviceBlocks.length > 0 && (
+            <section className={styles.servicesBand} aria-label="Advisory services">
+              <div className={`container ${styles.serviceList}`}>
+                {serviceBlocks.map((block, idx) => {
+                  const features = arr<string>(block.featureHighlights);
+                  return (
+                    <ScrollReveal key={`${block.title}-${idx}`} delay={idx * 40}>
+                      <article
+                        className={styles.serviceRow}
+                        aria-labelledby={`service-${idx}`}>
+                        <div className={styles.serviceMain}>
+                          <h3 id={`service-${idx}`} className={styles.serviceTitle}>
+                            {block.title}
+                          </h3>
+                          {block.shortDescription ? (
+                            <p className={styles.serviceShort}>{block.shortDescription}</p>
+                          ) : null}
+                          <div className={styles.serviceRule} aria-hidden />
+                          {block.supportingCopy ? (
+                            <p className={styles.serviceBody}>{block.supportingCopy}</p>
+                          ) : null}
+                          {features.length > 0 && (
+                            <ul className={styles.featureList}>
+                              {features.map((f) => (
+                                <li key={f}>{f}</li>
+                              ))}
+                            </ul>
+                          )}
+                          {block.pillarHref ? (
+                            <Link href={block.pillarHref} className={styles.learnMoreLink}>
+                              Learn more about {block.title}{" "}
+                              <ArrowRight size={14} aria-hidden strokeWidth={2} />
+                            </Link>
+                          ) : null}
+                        </div>
+                        <div className={styles.serviceSide}>
+                          <div className={styles.sideCard}>
+                            {block.sideCardEyebrow ? (
+                              <p className={styles.sideEyebrow}>{block.sideCardEyebrow}</p>
+                            ) : null}
+                            {block.sideCardHeadline ? (
+                              <p className={styles.sideHeadline}>{block.sideCardHeadline}</p>
+                            ) : null}
+                            {block.sideCardCtaText ? (
+                              <Link
+                                href={block.sideCardCtaHref || "/contact"}
+                                className={styles.sideCta}>
+                                <Button type="button" variant="advisor" size="lg">
+                                  <span>{block.sideCardCtaText}</span>
+                                  <ArrowRight size={18} aria-hidden strokeWidth={2} />
+                                </Button>
+                              </Link>
+                            ) : null}
+                          </div>
+                        </div>
+                      </article>
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+        </>
+      )}
+
+      {str(h.whoHeadline) && (
+        <section className={styles.whoBand} aria-labelledby="who-heading">
+          <div className="container">
+            <ScrollReveal>
+              <div className={styles.centerBlock}>
+                <h2 id="who-heading" className={styles.sectionTitle}>
+                  {str(h.whoHeadline)}
+                </h2>
+                <span className={styles.decorRule} aria-hidden />
+                {str(h.whoSupportingCopy) ? (
+                  <p className={`${styles.lead} ${styles.muted}`}>{str(h.whoSupportingCopy)}</p>
+                ) : null}
+              </div>
+            </ScrollReveal>
+
+            {whoClientTypes.length > 0 && (
+              <div className={styles.whoGrid}>
+                {whoClientTypes.map((item, idx) => {
+                  const label = str(item.label);
+                  if (!label) return null;
+                  const Icon = getHomeWhoIcon(item.icon);
+                  return (
+                    <ScrollReveal
+                      key={`${label}-${idx}`}
+                      delay={idx * 85}
+                      className={styles.gridRevealItem}
+                      variant="fadeUp">
+                      <article className={styles.whoTile}>
+                        <Icon className={styles.whoIcon} size={28} strokeWidth={1.5} aria-hidden />
+                        <p className={styles.whoLabel}>{label}</p>
+                      </article>
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
+            )}
+
+            {str(h.whoPositioningText) ? (
+              <ScrollReveal delay={100}>
+                <div className={styles.whoStatement}>
+                  <p>{str(h.whoPositioningText)}</p>
+                </div>
+              </ScrollReveal>
+            ) : null}
+
+            {str(h.whoCtaText) ? (
+              <ScrollReveal delay={140}>
+                <div className={styles.ctaRow}>
+                  <Link href={str(h.whoCtaHref) || "/contact"}>
+                    <Button type="button" variant="advisor" size="lg">
+                      <span>{str(h.whoCtaText)}</span>
+                      <ArrowRight size={18} aria-hidden strokeWidth={2} />
+                    </Button>
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ) : null}
+          </div>
+        </section>
+      )}
+
+      {str(h.whyHeadline) && (
+        <section className={styles.whyBand} aria-labelledby="why-heading">
+          <div className="container">
+            <div className={styles.whyGrid}>
+              <ScrollReveal>
+                <div>
+                  <h2 id="why-heading" className={styles.whyTitle}>
+                    {str(h.whyHeadline)}
+                  </h2>
+                  <span className={styles.whyRule} aria-hidden />
+                  {str(h.whySupportingCopy) ? (
+                    <p className={styles.whyBody}>{str(h.whySupportingCopy)}</p>
+                  ) : null}
+                </div>
+              </ScrollReveal>
+
+              {(whyBullets.length > 0 || str(h.whyClosingStatement)) && (
+                <ScrollReveal delay={80} variant="scaleIn">
+                  <div className={styles.valueCard}>
+                    {whyBullets.length > 0 && (
+                      <ul className={styles.valueList}>
+                        {whyBullets.map((b) => (
+                          <li key={b}>{b}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {str(h.whyClosingStatement) ? (
+                      <>
+                        <div className={styles.valueRule} aria-hidden />
+                        <p className={styles.whyClosing}>{str(h.whyClosingStatement)}</p>
+                      </>
+                    ) : null}
+                    {str(h.whyCtaText) ? (
+                      <Link href={str(h.whyCtaHref) || "/contact"}>
+                        <Button type="button" variant="advisor" size="lg">
+                          <span>{str(h.whyCtaText)}</span>
+                          <ArrowRight size={18} aria-hidden strokeWidth={2} />
+                        </Button>
+                      </Link>
+                    ) : null}
+                  </div>
+                </ScrollReveal>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {str(h.expertiseHeadline) && (
+        <section className={styles.expertiseBand} aria-labelledby="expertise-heading">
+          <div className="container">
+            <ScrollReveal>
+              <div className={styles.centerBlock}>
+                <h2 id="expertise-heading" className={styles.sectionTitle}>
+                  {str(h.expertiseHeadline)}
+                </h2>
+                {str(h.expertiseSubheadline) ? (
+                  <p className={styles.expertiseSubhead}>{str(h.expertiseSubheadline)}</p>
+                ) : null}
+                <span className={styles.decorRule} aria-hidden />
+                {str(h.expertiseLead) ? (
+                  <p className={styles.expertiseLead}>{str(h.expertiseLead)}</p>
+                ) : null}
+              </div>
+            </ScrollReveal>
+
+            {expertiseItems.length > 0 && (
+              <div className={styles.expertiseGrid}>
+                {expertiseItems.map((item, idx) => (
+                  <ScrollReveal
+                    key={item}
+                    delay={idx * 70}
+                    className={styles.gridRevealItem}
+                    variant="fadeUp">
+                    <article className={styles.expertiseCard}>
+                      <span className={styles.expertiseBullet} aria-hidden />
+                      <p className={styles.expertiseCardText}>{item}</p>
+                    </article>
+                  </ScrollReveal>
+                ))}
+              </div>
+            )}
+
+            {str(h.expertiseClosingStatement) ? (
+              <ScrollReveal delay={100}>
+                <p className={styles.expertiseClosing}>{str(h.expertiseClosingStatement)}</p>
+              </ScrollReveal>
+            ) : null}
+
+            {str(h.expertiseCtaText) ? (
+              <ScrollReveal delay={140}>
+                <div className={styles.ctaRow}>
+                  <Link href={str(h.expertiseCtaHref) || "/contact"}>
+                    <Button type="button" variant="advisor" size="lg">
+                      <span>{str(h.expertiseCtaText)}</span>
+                      <ArrowRight size={18} aria-hidden strokeWidth={2} />
+                    </Button>
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ) : null}
+          </div>
+        </section>
+      )}
+
+      {(str(h.finaleHeadline) || str(h.finaleSupportingCopy)) && (
+        <section className={styles.finaleBand} aria-labelledby="finale-heading">
+          <div className="container">
+            <ScrollReveal variant="fadeIn">
+              <div className={styles.finaleInner}>
+                {str(h.finaleHeadline) ? (
+                  <h2 id="finale-heading" className={styles.finaleTitle}>
+                    {str(h.finaleHeadline)}
+                  </h2>
+                ) : null}
+                {str(h.finaleSupportingCopy) ? (
+                  <p className={styles.finaleCopy}>{str(h.finaleSupportingCopy)}</p>
+                ) : null}
+                {str(h.finaleCtaText) ? (
+                  <div className={styles.ctaRow}>
+                    <Link href={str(h.finaleCtaHref) || "/contact"}>
+                      <Button type="button" variant="advisor" size="lg">
+                        <span>{str(h.finaleCtaText)}</span>
+                        <ArrowRight size={18} aria-hidden strokeWidth={2} />
+                      </Button>
+                    </Link>
+                  </div>
+                ) : null}
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

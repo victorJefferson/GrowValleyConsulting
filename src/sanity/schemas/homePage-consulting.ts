@@ -1,18 +1,50 @@
 import { defineField, defineType } from "sanity";
-import { HOMEPAGE_CONSULTING_INITIAL } from "../../config/homepageContent.defaults";
+import { HOME_WHO_ICON_OPTIONS } from "../../config/homeWhoIcons";
 
-const homePageConsultingSeed = {
-  ...HOMEPAGE_CONSULTING_INITIAL,
-  problemCards: [...HOMEPAGE_CONSULTING_INITIAL.problemCards],
-  coreExcellenceBullets: [...HOMEPAGE_CONSULTING_INITIAL.coreExcellenceBullets],
-  topExpertiseBullets: [...HOMEPAGE_CONSULTING_INITIAL.topExpertiseBullets],
+const statMetric = {
+  type: "object",
+  name: "homeStatMetric",
+  fields: [
+    defineField({ name: "metricValue", title: "Metric value", type: "string" }),
+    defineField({ name: "metricLabel", title: "Metric label", type: "string" }),
+    defineField({ name: "supportingLabel", title: "Supporting label", type: "string" }),
+  ],
+};
+
+const serviceBlock = {
+  type: "object",
+  name: "homeServiceBlock",
+  fields: [
+    defineField({ name: "title", title: "Service title", type: "string" }),
+    defineField({ name: "shortDescription", title: "Short description", type: "string" }),
+    defineField({ name: "supportingCopy", title: "Supporting copy", type: "text", rows: 4 }),
+    defineField({
+      name: "featureHighlights",
+      title: "Feature highlights",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+    defineField({ name: "sideCardEyebrow", title: "Side card eyebrow", type: "string" }),
+    defineField({ name: "sideCardHeadline", title: "Side card headline", type: "text", rows: 3 }),
+    defineField({ name: "sideCardCtaText", title: "Side card CTA text", type: "string" }),
+    defineField({ name: "sideCardCtaHref", title: "Side card CTA link", type: "string" }),
+    defineField({
+      name: "pillarHref",
+      title: "Pillar page link (optional)",
+      description: "Used for “Learn more” on the main column when set.",
+      type: "string",
+    }),
+  ],
+  preview: {
+    select: { title: "title" },
+    prepare: ({ title }: { title?: string }) => ({ title: title || "Service block" }),
+  },
 };
 
 export default defineType({
   name: "homePage-consulting",
   title: "Home Page (Consulting)",
   type: "document",
-  initialValue: homePageConsultingSeed,
   fields: [
     defineField({
       name: "title",
@@ -23,196 +55,224 @@ export default defineType({
     }),
 
     defineField({
-      name: "problemsEyebrow",
-      title: "Problems band – eyebrow",
+      name: "stats",
+      title: "Stats / credibility metrics",
+      type: "array",
+      of: [statMetric],
+    }),
+
+    defineField({
+      name: "positioningEyebrow",
+      title: "Positioning – eyebrow",
       type: "string",
     }),
     defineField({
-      name: "problemsHeadline",
-      title: "Problems band – headline",
+      name: "positioningHeadline",
+      title: "Positioning – headline",
       type: "string",
     }),
     defineField({
-      name: "problemsLeadParagraph",
-      title: "Problems band – lead paragraph",
+      name: "positioningSupportingCopy",
+      title: "Positioning – supporting copy",
       type: "text",
       rows: 3,
     }),
     defineField({
-      name: "problemsMutedLead",
-      title: "Problems band – muted line (below lead)",
-      type: "text",
-      rows: 2,
-    }),
-    defineField({
-      name: "problemCards",
-      title: "Problems band – cards",
+      name: "painPointCards",
+      title: "Positioning – pain point cards",
       type: "array",
       of: [{ type: "string" }],
     }),
     defineField({
-      name: "problemsClosing",
-      title: "Problems band – closing muted copy",
-      type: "text",
-      rows: 2,
-    }),
-
-    defineField({
-      name: "bridgeStatement",
-      title: "Bridge band – panel copy",
+      name: "positioningStatement",
+      title: "Positioning – statement card",
       type: "text",
       rows: 3,
     }),
     defineField({
-      name: "bridgeCtaText",
-      title: "Bridge band – advisor button label",
+      name: "positioningCtaText",
+      title: "Positioning – CTA text",
       type: "string",
     }),
     defineField({
-      name: "bridgeCtaLink",
-      title: "Bridge band – advisor link",
+      name: "positioningCtaHref",
+      title: "Positioning – CTA link",
       type: "string",
     }),
 
     defineField({
-      name: "integratedEyebrow",
-      title: "Integrated advisory band – eyebrow",
+      name: "ecosystemHeadline",
+      title: "Ecosystem – headline",
       type: "string",
     }),
     defineField({
-      name: "integratedBody",
-      title: "Integrated advisory band – paragraph",
+      name: "ecosystemSupportingCopy",
+      title: "Ecosystem – supporting copy",
+      type: "text",
+      rows: 4,
+    }),
+
+    defineField({
+      name: "serviceBlocks",
+      title: "Service blocks (split layout)",
+      type: "array",
+      of: [serviceBlock],
+    }),
+
+    defineField({
+      name: "whoHeadline",
+      title: "Who we work with – headline",
+      type: "string",
+    }),
+    defineField({
+      name: "whoSupportingCopy",
+      title: "Who we work with – supporting copy",
       type: "text",
       rows: 3,
     }),
-
     defineField({
-      name: "missionStatement",
-      title: "Mission band – boxed statement",
+      name: "whoClientTypes",
+      title: "Who we work with – client types",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "homeWhoClientType",
+          fields: [
+            defineField({
+              name: "label",
+              title: "Label",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "icon",
+              title: "Icon",
+              type: "string",
+              options: {
+                list: HOME_WHO_ICON_OPTIONS.map((o) => ({
+                  title: o.title,
+                  value: o.value,
+                })),
+                layout: "dropdown",
+              },
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: { title: "label", subtitle: "icon" },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: "whoPositioningText",
+      title: "Who we work with – positioning card",
       type: "text",
       rows: 3,
     }),
     defineField({
-      name: "missionCtaText",
-      title: "Mission band – advisor label",
+      name: "whoCtaText",
+      title: "Who we work with – CTA text",
       type: "string",
     }),
     defineField({
-      name: "missionCtaLink",
-      title: "Mission band – advisor link",
+      name: "whoCtaHref",
+      title: "Who we work with – CTA link",
       type: "string",
     }),
 
     defineField({
-      name: "whyGrowthHeadline",
+      name: "whyHeadline",
       title: "Why GrowValley – headline",
       type: "string",
     }),
     defineField({
-      name: "whyGrowthBody",
-      title: "Why GrowValley – body",
+      name: "whySupportingCopy",
+      title: "Why GrowValley – supporting copy",
       type: "text",
       rows: 5,
     }),
     defineField({
-      name: "whyGrowthEyebrow",
-      title: "Why GrowValley – small WHY label",
-      type: "string",
-    }),
-    defineField({
-      name: "whyGrowthItalic",
-      title: "Why GrowValley – italic line under WHY label",
-      type: "text",
-      rows: 2,
-    }),
-    defineField({
-      name: "coreExcellenceEyebrow",
-      title: "Core excellence panel – eyebrow",
-      type: "string",
-    }),
-    defineField({
-      name: "coreExcellenceBullets",
-      title: "Core excellence panel – bullets",
+      name: "whyBullets",
+      title: "Why GrowValley – value bullets",
       type: "array",
       of: [{ type: "string" }],
     }),
     defineField({
-      name: "whyGrowthClosingLine",
-      title: "Core excellence panel – closing headline",
+      name: "whyClosingStatement",
+      title: "Why GrowValley – closing statement",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({
+      name: "whyCtaText",
+      title: "Why GrowValley – CTA text",
       type: "string",
     }),
     defineField({
-      name: "whyGrowthCtaText",
-      title: "Why GrowValley – advisor button label",
-      type: "string",
-    }),
-    defineField({
-      name: "whyGrowthCtaLink",
-      title: "Why GrowValley – advisor link",
+      name: "whyCtaHref",
+      title: "Why GrowValley – CTA link",
       type: "string",
     }),
 
     defineField({
-      name: "topExpertiseHeadline",
-      title: "Top expertise band – headline",
+      name: "expertiseHeadline",
+      title: "Top expertise – headline",
       type: "string",
     }),
     defineField({
-      name: "topExpertiseSubhead",
-      title: "Top expertise band – subheadline",
+      name: "expertiseSubheadline",
+      title: "Top expertise – subheadline",
       type: "string",
     }),
     defineField({
-      name: "topExpertiseLead",
-      title: "Top expertise band – introductory paragraph",
+      name: "expertiseLead",
+      title: "Top expertise – lead paragraph",
       type: "text",
       rows: 3,
     }),
     defineField({
-      name: "topExpertiseBullets",
-      title: "Top expertise band – bullets (grid)",
+      name: "expertiseItems",
+      title: "Top expertise – grid items",
       type: "array",
       of: [{ type: "string" }],
     }),
-
     defineField({
-      name: "insightsCarouselTitle",
-      title: "Insights carousel – title",
+      name: "expertiseClosingStatement",
+      title: "Top expertise – closing statement",
       type: "string",
     }),
     defineField({
-      name: "insightsCarouselDescription",
-      title: "Insights carousel – description",
-      type: "text",
-      rows: 2,
-    }),
-
-    defineField({
-      name: "solutionsAdvisorCtaText",
-      title: "Ecosystem / Solutions band – advisor button label",
-      description: 'Shown below the five pillar cards (typically “Talk to our Advisor”).',
+      name: "expertiseCtaText",
+      title: "Top expertise – CTA text",
       type: "string",
     }),
     defineField({
-      name: "solutionsAdvisorCtaHref",
-      title: "Ecosystem / Solutions band – advisor link",
+      name: "expertiseCtaHref",
+      title: "Top expertise – CTA link",
       type: "string",
     }),
 
     defineField({
-      name: "finaleStatement",
-      title: "Finale band – closing statement",
+      name: "finaleHeadline",
+      title: "Final CTA – headline",
+      type: "string",
+    }),
+    defineField({
+      name: "finaleSupportingCopy",
+      title: "Final CTA – supporting copy",
       type: "text",
       rows: 3,
     }),
     defineField({
       name: "finaleCtaText",
-      title: "Finale band – advisor label",
+      title: "Final CTA – button text",
       type: "string",
     }),
     defineField({
-      name: "finaleCtaLink",
-      title: "Finale band – advisor link",
+      name: "finaleCtaHref",
+      title: "Final CTA – link",
       type: "string",
     }),
   ],

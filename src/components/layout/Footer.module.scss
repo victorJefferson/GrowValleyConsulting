@@ -1,80 +1,303 @@
 .footer {
     background-color: var(--color-surface-1);
-    color: var(--color-primary-navy);
-    padding: var(--section-gap) 0 0;
+    color: var(--color-text-body);
+    padding: clamp(2.5rem, 6vw, var(--section-gap)) 0 0;
     font-family: var(--font-family-sans);
-
-    h3,
-    h4 {
-        color: var(--color-primary-navy);
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-    }
-
-    h3 {
-        font-size: 1.875rem;
-        line-height: 1.2;
-        margin-bottom: 0;
-        font-weight: 400;
-        color: var(--color-primary-navy);
-    }
 }
 
+/* ── Mobile: centered compact stack ── */
 .footerGrid {
-    display: grid;
-    gap: 4rem;
-    grid-template-columns: 1fr;
-    padding-bottom: var(--section-gap);
-
-    @media (min-width: 1024px) {
-        grid-template-columns: 1fr 3fr;
-    }
-}
-
-.brandCol {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    padding-bottom: clamp(2rem, 5vw, var(--section-gap));
+    width: 100%;
+    max-width: 24rem;
+    margin-inline: auto;
+    padding-inline: 0.25rem;
 
-    .logoLink {
-        display: inline-block;
-        margin-bottom: 3rem;
+    @media (min-width: 1024px) {
+        display: grid;
+        grid-template-columns: minmax(300px, 1.35fr) minmax(0, 1.25fr) minmax(200px, 0.9fr);
+        grid-template-areas: "brand capabilities company";
+        gap: 2.5rem clamp(2.5rem, 5vw, 5rem);
+        max-width: var(--max-width-container);
+        margin-inline: auto;
+        text-align: left;
+        align-items: start;
+        width: 100%;
+        padding-inline: 0;
+    }
+}
+
+/* Mobile: unwrap brand column so order stays social → nav → divider → logo */
+.brandColumn {
+    display: contents;
+
+    @media (min-width: 1024px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        grid-area: brand;
+        gap: 2rem;
+        min-height: 100%;
+    }
+}
+
+.brandBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    @media (max-width: 1023px) {
+        order: 4;
     }
 
-    .logoImage {
+    @media (min-width: 1024px) {
+        align-items: flex-start;
+    }
+}
+
+.socialBlock {
+    width: 100%;
+
+    @media (max-width: 1023px) {
+        order: 1;
+    }
+
+    @media (min-width: 1024px) {
         width: auto;
+        padding-top: 0.5rem;
+    }
+}
+
+.socialLabel {
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.socialLinks {
+    display: flex;
+    justify-content: center;
+    gap: 0.85rem;
+
+    @media (min-width: 1024px) {
+        justify-content: flex-start;
+    }
+}
+
+.socialIcon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-border-strong);
+    background: transparent;
+    color: var(--color-pure-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+
+    svg {
+        display: block;
+    }
+
+    &:hover {
+        border-color: var(--color-pure-white);
+        background: hsla(0, 0%, 100%, 0.06);
+    }
+}
+
+.navGrid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+
+    @media (max-width: 1023px) {
+        order: 2;
+    }
+
+    @media (min-width: 1024px) {
+        display: contents;
+    }
+}
+
+.linksCol {
+    h4 {
+        margin: 0 0 0.5rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+    }
+
+    @media (min-width: 1024px) {
+        h4 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: normal;
+            text-transform: none;
+            color: var(--color-primary-navy);
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+.linksColCapabilities {
+    @media (min-width: 1024px) {
+        grid-area: capabilities;
+
+        h4 {
+            text-align: center;
+        }
+
+        .navLinkList {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: clamp(1.5rem, 3vw, 3rem);
+            row-gap: 0.15rem;
+        }
+    }
+}
+
+.linksColCompany {
+    @media (min-width: 1024px) {
+        grid-area: company;
+        justify-self: end;
+        min-width: 11rem;
+    }
+}
+
+.navLinkList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.15rem 0;
+    line-height: 1.5;
+
+    li {
+        display: inline-flex;
+        align-items: center;
+
+        &:not(:last-child)::after {
+            content: "|";
+            margin: 0 0.45rem;
+            color: var(--color-text-muted);
+            font-size: 0.75rem;
+            font-weight: 300;
+        }
+    }
+
+    a {
+        font-size: 0.8125rem;
+        color: var(--color-text-muted);
+        text-decoration: none;
+        transition: color 0.2s;
+
+        &:hover {
+            color: var(--color-pure-white);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
+
+        li {
+            display: block;
+            margin-bottom: 0.9rem;
+
+            &:not(:last-child)::after {
+                content: none;
+            }
+        }
+
+        a {
+            font-size: 1rem;
+        }
+    }
+}
+
+.sectionDivider {
+    width: 100%;
+    max-width: 16rem;
+    margin: 0;
+    border: none;
+    border-top: 1px solid var(--color-border);
+    opacity: 1;
+
+    @media (max-width: 1023px) {
+        order: 3;
+    }
+
+    @media (min-width: 1024px) {
+        display: none;
+    }
+}
+
+.logoLink {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+
+    @media (min-width: 1024px) {
+        margin-bottom: 2.5rem;
+    }
+}
+
+.logoImage {
+    width: auto;
+    height: 44px;
+    object-fit: contain;
+
+    @media (min-width: 1024px) {
         height: 50px;
-        object-fit: contain;
     }
 }
 
 .contactCallout {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2.5rem;
+    align-items: center;
+    gap: 0.35rem;
+
+    @media (min-width: 1024px) {
+        align-items: flex-start;
+    }
 }
 
-.phoneLink {
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    font-weight: 500;
+.contactHeading {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.3;
     color: var(--color-primary-navy);
-    text-decoration: none;
-    transition: color 0.3s ease;
 
-    &:hover {
-        color: var(--color-accent);
+    @media (min-width: 1024px) {
+        font-size: 1.875rem;
     }
 }
 
 .enquiryLink {
-    margin-top: 1rem; // Reduced from 1.75rem to balance with phone link
     color: var(--color-accent);
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1rem;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.35rem;
     text-decoration: none;
     transition: gap 0.3s ease;
 
@@ -83,112 +306,98 @@
     }
 
     &:hover {
-        gap: 0.65rem;
+        gap: 0.55rem;
 
         .arrow {
             transform: translateX(3px);
         }
     }
-}
-
-.socialLinks {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 3.5rem;
-}
-
-.socialIcon {
-    width: 44px;
-    height: 44px;
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-    flex-shrink: 0;
-
-    svg {
-        display: block;
-    }
-
-    &:hover {
-        background-color: var(--color-primary);
-    }
-}
-
-.navGrid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(1, 1fr);
-
-    @media (min-width: 640px) {
-        grid-template-columns: repeat(2, 1fr);
-    }
 
     @media (min-width: 1024px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-.linksCol {
-    h4 {
-        font-size: 1.125rem;
-        margin-bottom: 2rem;
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-
-        li {
-            margin-bottom: 1rem;
-
-            a {
-                color: var(--color-text-muted);
-                font-size: 1rem;
-                transition: color 0.2s;
-
-                &:hover {
-                    color: var(--color-primary-navy);
-                    text-decoration: underline;
-                }
-            }
-        }
+        font-size: 1.25rem;
+        margin-top: 0.5rem;
     }
 }
 
 .bottomBar {
     background-color: var(--color-surface-2);
-    padding: 1.5rem 0;
-    border-top: 1px solid var(--color-surface-3);
+    padding: 1.35rem 0 1.75rem;
+    border-top: 1px solid var(--color-border-subtle);
 }
 
 .bottomInner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
+    gap: 1rem;
+    text-align: center;
 
     @media (min-width: 768px) {
         flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+.copyright {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: var(--color-text-muted);
+    max-width: 20rem;
+
+    @media (min-width: 768px) {
+        max-width: none;
+        font-size: 0.875rem;
     }
 }
 
 .legalLinks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.15rem 0;
+    max-width: 18rem;
+
+    li {
+        display: inline-flex;
+        align-items: center;
+
+        &:not(:last-child)::after {
+            content: "|";
+            margin: 0 0.45rem;
+            color: var(--color-text-muted);
+            font-size: 0.7rem;
+            font-weight: 300;
+        }
+    }
 
     a {
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        text-decoration: none;
         transition: color 0.2s;
 
         &:hover {
-            color: var(--color-primary-navy);
-            text-decoration: underline;
+            color: var(--color-pure-white);
+        }
+    }
+
+    @media (min-width: 768px) {
+        max-width: none;
+        flex-wrap: nowrap;
+        gap: 2rem;
+
+        li::after {
+            display: none !important;
+        }
+
+        a {
+            font-size: 0.875rem;
         }
     }
 }
