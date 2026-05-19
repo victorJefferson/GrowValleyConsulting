@@ -3,7 +3,8 @@ import { client } from "@/lib/sanity";
 import { heroQuery, homePageQuery } from "@/lib/queries";
 import HomeContent from "./HomeContent";
 
-export const revalidate = 0;
+/** Pre-render at build; revalidate periodically (Workers Free 10ms CPU limit). */
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: {

@@ -132,7 +132,7 @@ function PillarCapabilityBlock({
         </p>
       )}
       <div className={styles.capabilityLinkRow}>
-        <Link href={href} className={styles.capabilityExploreLink}>
+        <Link href={href} className={styles.capabilityExploreLink} prefetch={false}>
           Read more <ArrowRight size={18} strokeWidth={2} aria-hidden />
         </Link>
       </div>

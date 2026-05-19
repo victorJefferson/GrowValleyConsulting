@@ -106,7 +106,7 @@ export function Navbar({ settings }: { settings?: any }) {
                                     <div className={styles.megaMenuHeader}>
                                       <h3>{link.name}</h3>
                                       <p>{link.description}</p>
-                                      <Link href={link.href} className={styles.overviewLink} onClick={() => close()}>
+                                      <Link href={link.href} className={styles.overviewLink} onClick={() => close()} prefetch={false}>
                                         View Overview <ArrowRight size={16} />
                                       </Link>
                                     </div>
@@ -122,6 +122,7 @@ export function Navbar({ settings }: { settings?: any }) {
                                         href={child.href}
                                         className={styles.megaMenuItem}
                                         onClick={() => close()}
+                                        prefetch={false}
                                       >
                                         <div className={`${styles.megaMenuItemLabel} ${child.isFeatured ? styles.isFeatured : ""}`}>
                                           {child.name}
@@ -140,6 +141,7 @@ export function Navbar({ settings }: { settings?: any }) {
                                       href={child.href}
                                       className={styles.megaMenuItem}
                                       onClick={() => close()}
+                                      prefetch={false}
                                     >
                                       <div className={`${styles.megaMenuItemLabel} ${child.isFeatured ? styles.isFeatured : ""}`}>
                                         {child.name}

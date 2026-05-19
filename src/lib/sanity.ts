@@ -8,7 +8,8 @@ export const client = createClient({
     projectId,
     dataset,
     apiVersion: "2024-03-01",
-    useCdn: false,
+    // CDN reduces Sanity latency and Worker CPU on cache misses (Free tier: 10ms CPU cap).
+    useCdn: process.env.NODE_ENV === "production",
 });
 
 const builder = createImageUrlBuilder(client);

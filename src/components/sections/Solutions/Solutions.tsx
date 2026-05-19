@@ -152,7 +152,7 @@ export const Solutions = ({
                             <p className={styles.supportingHow}>
                                 <span className={styles.howLabel}>How:</span>&nbsp;{item.howNeedsMet}
                             </p>
-                            <Link href={item.href} className={styles.detailLink}>
+                            <Link href={item.href} className={styles.detailLink} prefetch={false}>
                                 Learn more about {item.title}{" "}
                                 <ArrowRight size={14} aria-hidden strokeWidth={2} />
                             </Link>
@@ -163,7 +163,7 @@ export const Solutions = ({
                                 <p className={styles.needsItalic}>{item.howNeedsMet}</p>
                                 <div className={styles.needsRule} aria-hidden />
                                 <p className={styles.ctaLead}>{item.ctaPrompt}</p>
-                                <Link href={advisorHref} className={styles.advisorWrap}>
+                                <Link href={advisorHref} className={styles.advisorWrap} prefetch={false}>
                                     <Button type="button" variant="advisor" size="lg">
                                         <span>{advisorLabel}</span>
                                         <ArrowRight size={18} aria-hidden strokeWidth={2} />
