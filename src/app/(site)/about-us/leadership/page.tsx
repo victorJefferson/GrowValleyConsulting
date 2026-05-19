@@ -42,7 +42,7 @@ export default async function LeadershipPage() {
   // If leadershipData is empty, we don't have a fallback array in the original file (they were hardcoded there)
   // I'll keep the hardcoded ones as fallback if no CMS data exists
   const fallbackLeadership = [
-    { name: "Jazeer Jamal", role: "Group Chairman and CEO", image: "/images/people/jazeer_jamal.jpg" },
+    { name: "Jazeer Jamal", role: "Founder and CEO", image: "/images/people/jazeer_jamal.jpg" },
     { name: "William J. Daly", role: "Co-Founder and CXO", image: "/images/people/william.jpg" },
     { name: "Suhail Ismail", role: "Group COO", image: "/images/people/suhail.jpg" }
   ];
