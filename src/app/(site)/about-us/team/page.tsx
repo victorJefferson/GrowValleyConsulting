@@ -40,15 +40,15 @@ export default async function TeamPage() {
 
   /** Team Page V1 — matches CMS seed (`category: operations`, stable _id order). */
   const fallbackSpecialists = [
-    { name: "Faris Al Khaldi", role: "Corporate Formation & Structuring", image: placeholderImg },
-    { name: "Omar Farouq", role: "UAE Formation", image: placeholderImg },
-    { name: "Kavya Reddy", role: "Structuring", image: placeholderImg },
-    { name: "Matthias Keller", role: "Government & Compliance Operations", image: placeholderImg },
-    { name: "Imran Qureshi", role: "Government Liaison", image: placeholderImg },
-    { name: "Elena Markova", role: "Entity Management", image: placeholderImg },
-    { name: "Nur Aisyah Rahman", role: "Finance & Back-Office", image: placeholderImg },
-    { name: "Ji-Hoon Park", role: "Accounting", image: placeholderImg },
-    { name: "Viktor Novak", role: "International Expansion", image: placeholderImg },
+    { name: "Nadia Al Rashid", role: "Strategy & Scale Readiness", image: placeholderImg },
+    { name: "Tariq Mansour", role: "Performance Transformation", image: placeholderImg },
+    { name: "Leila Okonkwo", role: "PMO & Execution Governance", image: placeholderImg },
+    { name: "James Whitfield", role: "Leadership & Organizational Design", image: placeholderImg },
+    { name: "Kai Nakamura", role: "Venture Studio Operations", image: placeholderImg },
+    { name: "Sven Hartmann", role: "Corporate Venture Building", image: placeholderImg },
+    { name: "Amara Diallo", role: "Family Office Advisory", image: placeholderImg },
+    { name: "Rohan Mehta", role: "Business Structuring & Governance", image: placeholderImg },
+    { name: "Sofia Andrade", role: "Transformation & Change Management", image: placeholderImg },
   ];
 
   const operationsFromCms =

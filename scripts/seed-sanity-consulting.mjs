@@ -305,15 +305,15 @@ for (const slug of heroSlugs) {
 
 // Team page V1 — `/about-us/team` (category `operations`; leadership page still uses `advisory` only)
 const teamOperationsV1 = [
-  { _id: "team-consulting-v1-01-faris", name: "Faris Al Khaldi", role: "Corporate Formation & Structuring" },
-  { _id: "team-consulting-v1-02-omar", name: "Omar Farouq", role: "UAE Formation" },
-  { _id: "team-consulting-v1-03-kavya", name: "Kavya Reddy", role: "Structuring" },
-  { _id: "team-consulting-v1-04-matthias", name: "Matthias Keller", role: "Government & Compliance Operations" },
-  { _id: "team-consulting-v1-05-imran", name: "Imran Qureshi", role: "Government Liaison" },
-  { _id: "team-consulting-v1-06-elena", name: "Elena Markova", role: "Entity Management" },
-  { _id: "team-consulting-v1-07-nur", name: "Nur Aisyah Rahman", role: "Finance & Back-Office" },
-  { _id: "team-consulting-v1-08-jihoon", name: "Ji-Hoon Park", role: "Accounting" },
-  { _id: "team-consulting-v1-09-viktor", name: "Viktor Novak", role: "International Expansion" },
+  { _id: "team-consulting-v1-01-nadia", name: "Nadia Al Rashid", role: "Strategy & Scale Readiness" },
+  { _id: "team-consulting-v1-02-tariq", name: "Tariq Mansour", role: "Performance Transformation" },
+  { _id: "team-consulting-v1-03-leila", name: "Leila Okonkwo", role: "PMO & Execution Governance" },
+  { _id: "team-consulting-v1-04-james", name: "James Whitfield", role: "Leadership & Organizational Design" },
+  { _id: "team-consulting-v1-05-kai", name: "Kai Nakamura", role: "Venture Studio Operations" },
+  { _id: "team-consulting-v1-06-sven", name: "Sven Hartmann", role: "Corporate Venture Building" },
+  { _id: "team-consulting-v1-07-amara", name: "Amara Diallo", role: "Family Office Advisory" },
+  { _id: "team-consulting-v1-08-rohan", name: "Rohan Mehta", role: "Business Structuring & Governance" },
+  { _id: "team-consulting-v1-09-sofia", name: "Sofia Andrade", role: "Transformation & Change Management" },
 ];
 for (const m of teamOperationsV1) {
   tx.createOrReplace({

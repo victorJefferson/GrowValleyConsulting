@@ -28,21 +28,90 @@ function SocialLinks() {
   );
 }
 
+function FooterLinkList({
+  links,
+  className,
+}: {
+  links: FooterLink[];
+  className?: string;
+}) {
+  if (links.length === 0) return null;
+
+  return (
+    <ul className={className}>
+      {links.map((link) => (
+        <li key={link.href}>
+          <Link
+            href={link.href}
+            {...(link.href.startsWith("http")
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}>
+            {link.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 const LEGAL_LINKS: FooterLink[] = [
   { name: "Privacy Policy", href: "/privacy-policy" },
   { name: "Terms of Use", href: "/terms-of-use" },
-  { name: "Contact", href: "/contact" },
 ];
+
+function splitBalancedColumns(links: FooterLink[]): [FooterLink[], FooterLink[]] {
+  const midpoint = Math.ceil(links.length / 2);
+  return [links.slice(0, midpoint), links.slice(midpoint)];
+}
+
+const REACH_US_HREFS = new Set(["/join-us/careers", "/partner-with-us", "/contact"]);
 
 const DEFAULT_COMPANY_COLUMN: FooterColumn = {
   columnTitle: "Company",
   links: [
     { name: "About", href: "/about-us" },
+    { name: "Leadership", href: "/about-us/leadership" },
     { name: "Team", href: "/about-us/team" },
+  ],
+};
+
+const DEFAULT_REACH_US_COLUMN: FooterColumn = {
+  columnTitle: "Reach us",
+  links: [
     { name: "Careers", href: "/join-us/careers" },
+    { name: "Partner with us", href: "/partner-with-us" },
     { name: "Contact", href: "/contact" },
   ],
 };
+
+function isReachUsLink(link: FooterLink): boolean {
+  const name = link.name.toLowerCase();
+  return (
+    REACH_US_HREFS.has(link.href) ||
+    ["careers", "contact", "partner with us"].includes(name) ||
+    name.includes("partner")
+  );
+}
+
+function mergeOrderedLinks(defaults: FooterLink[], current: FooterLink[]): FooterLink[] {
+  const byHref = new Map(current.map((link) => [link.href, link]));
+  const merged = defaults.map((link) => byHref.get(link.href) ?? link);
+  const extra = current.filter((link) => !defaults.some((d) => d.href === link.href));
+  return [...merged, ...extra];
+}
+
+function partitionCompanyLinks(links: FooterLink[]): {
+  companyLinks: FooterLink[];
+  reachUsLinks: FooterLink[];
+} {
+  const reachUsLinks = links.filter(isReachUsLink);
+  const companyLinks = links.filter((link) => !isReachUsLink(link));
+
+  return {
+    companyLinks,
+    reachUsLinks: reachUsLinks.length > 0 ? reachUsLinks : DEFAULT_REACH_US_COLUMN.links!,
+  };
+}
 
 type FooterPillar = { title?: string; slug?: string };
 
@@ -63,9 +132,27 @@ function buildFooterNav(
       : null;
 
   const cmsCompany = cmsColumns?.find((c) => c.columnTitle?.toLowerCase() === "company");
-  const companyColumn = cmsCompany?.links?.length ? cmsCompany : DEFAULT_COMPANY_COLUMN;
+  const companySource = cmsCompany?.links?.length ? cmsCompany.links : DEFAULT_COMPANY_COLUMN.links!;
+  const { companyLinks, reachUsLinks } = partitionCompanyLinks(companySource);
 
-  return [capabilitiesColumn, companyColumn].filter(Boolean) as FooterColumn[];
+  const companyColumn: FooterColumn = {
+    columnTitle: "Company",
+    links: mergeOrderedLinks(DEFAULT_COMPANY_COLUMN.links!, companyLinks),
+  };
+
+  const reachUsColumn: FooterColumn = {
+    columnTitle: "Reach us",
+    links: mergeOrderedLinks(DEFAULT_REACH_US_COLUMN.links!, reachUsLinks),
+  };
+
+  return [companyColumn, reachUsColumn, capabilitiesColumn].filter(Boolean) as FooterColumn[];
+}
+
+function desktopNavGroupClass(columnTitle: string): string {
+  const title = columnTitle.toLowerCase();
+  if (title === "our capabilities") return styles.desktopNavGroupCapabilities;
+  if (title === "reach us") return styles.desktopNavGroupReach;
+  return styles.desktopNavGroupCompany;
 }
 
 export function Footer({
@@ -75,6 +162,7 @@ export function Footer({
   settings?: {
     footerNavigation?: FooterColumn[];
     footerCopyright?: string;
+    footerTagline?: string;
   };
   pillars?: FooterPillar[];
 }) {
@@ -82,9 +170,22 @@ export function Footer({
   const footerCopyright =
     settings?.footerCopyright ||
     "© 2026 GrowValley Consulting | A subsidiary of GrowValley Group.";
+  const footerTagline =
+    settings?.footerTagline || "Enabling businesses to reach their highest potential.";
+
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.footerGrid}`}>
+        <Link href="/" className={styles.desktopLogo} aria-label="GrowValley Consulting home">
+          <img
+            src="/gv-logo-white.png"
+            alt=""
+            width="160"
+            height="60"
+            className={styles.logoImage}
+          />
+        </Link>
+
         <aside className={styles.brandColumn}>
           <section className={styles.brandBlock}>
             <Link href="/" className={styles.logoLink}>
@@ -118,25 +219,53 @@ export function Footer({
                 key={`${column.columnTitle}-${idx}`}
                 className={`${styles.linksCol} ${idx === 0 ? styles.linksColCapabilities : styles.linksColCompany}`}>
                 <h4>{column.columnTitle}</h4>
-                <ul className={styles.navLinkList}>
-                  {column.links?.map((link, linkIdx) => (
-                    <li key={`${link.name}-${linkIdx}`}>
-                      <Link
-                        href={link.href}
-                        {...(link.href.startsWith("http")
-                          ? { target: "_blank", rel: "noopener noreferrer" }
-                          : {})}>
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <FooterLinkList links={column.links ?? []} className={styles.navLinkList} />
               </div>
             ))}
           </nav>
         )}
 
+        {footerNav.length > 0 && (
+          <nav className={styles.desktopNav} aria-label="Footer navigation">
+            {footerNav.map((column, idx) => {
+              const links = column.links ?? [];
+              const isCapabilities = column.columnTitle?.toLowerCase() === "our capabilities";
+              const [colA, colB] = isCapabilities ? splitBalancedColumns(links) : [links, []];
+
+              return (
+                <div
+                  key={`desktop-${column.columnTitle}-${idx}`}
+                  className={`${styles.desktopNavGroup} ${desktopNavGroupClass(column.columnTitle)}`}>
+                  <h3 className={styles.desktopNavHeading}>{column.columnTitle}</h3>
+                  {isCapabilities ? (
+                    <div className={styles.desktopNavColumns}>
+                      <FooterLinkList links={colA} className={styles.desktopNavCol} />
+                      <FooterLinkList links={colB} className={styles.desktopNavCol} />
+                    </div>
+                  ) : (
+                    <FooterLinkList links={links} className={styles.desktopNavCol} />
+                  )}
+                </div>
+              );
+            })}
+          </nav>
+        )}
+
+        <section className={styles.desktopCallout} aria-labelledby="footer-contact-heading">
+          <div className={styles.desktopCalloutInner}>
+            <h2 id="footer-contact-heading" className={styles.desktopCalloutHeading}>
+              Got a question?
+            </h2>
+            {footerTagline ? <p className={styles.desktopCalloutTagline}>{footerTagline}</p> : null}
+            <Link href="/contact" className={styles.desktopEnquiryLink}>
+              Make an enquiry
+              <ArrowRight size={16} className={styles.desktopEnquiryArrow} aria-hidden />
+            </Link>
+          </div>
+        </section>
+
         <hr className={styles.sectionDivider} aria-hidden />
+        <hr className={styles.desktopDivider} aria-hidden />
       </div>
 
       <div className={styles.bottomBar}>
