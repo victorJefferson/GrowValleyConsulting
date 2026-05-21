@@ -9,8 +9,6 @@ import { MaintenanceMode } from "../../components/ui/MaintenanceMode";
 import { client } from "../../lib/sanity";
 import { serviceCategoriesQuery, siteSettingsQuery } from "../../lib/queries";
 
-export const revalidate = 3600;
-
 export default async function SiteLayout({
   children,
 }: Readonly<{
